@@ -34,7 +34,7 @@
 		{
 			"path": "pages/wode/wode",
 			"style": {
-				"navigationBarTitleText": "个人中心",
+				"navigationBarTitleText": "我的",
 				"enablePullDownRefresh": false
 			}
 		}
@@ -205,12 +205,39 @@
 			}]
 		},
 		{
-			"root": "pages/wode/weixinshouquan",
+			"root": "pages/wode/zhanghaodenglu",
 			"pages": [{
-				"path": "weixinshouquan",
+				"path": "zhanghaodenglu",
+				"style": {
+					"navigationStyle": "custom",
+					"navigationBarTitleText": "登录",
+					"enablePullDownRefresh": false
+				}
+			},{
+				"path": "zhuce",
+				"style": {
+					"navigationBarTitleText": "账号注册",
+					"enablePullDownRefresh": false
+				}
+			}]
+		},
+		{
+			"root": "pages/wode/shifuguifanshouce",
+			"pages": [{
+				"path": "shifuguifanshouce",
 				"style": {
 					// "navigationStyle": "custom",
-					"navigationBarTitleText": "授权",
+					"navigationBarTitleText": "师傅规范手册",
+					"enablePullDownRefresh": false
+				}
+			}]
+		},{
+			"root": "pages/wode/zihujinyingzhengshu",
+			"pages": [{
+				"path": "zihujinyingzhengshu",
+				"style": {
+					// "navigationStyle": "custom",
+					"navigationBarTitleText": "自主经营证书",
 					"enablePullDownRefresh": false
 				}
 			}]
@@ -232,16 +259,6 @@
 				}
 			}]
 		}, {
-			"root": "pages/wode/youhuiquan",
-			"pages": [{
-				"path": "youhuiquan",
-				"style": {
-					// "navigationStyle": "custom",
-					"navigationBarTitleText": "优惠券",
-					"enablePullDownRefresh": false
-				}
-			}]
-		}, {
 			"root": "pages/wode/qianbao",
 			"pages": [{
 				"path": "qianbao",
@@ -255,60 +272,6 @@
 				"style": {
 					// "navigationStyle": "custom",
 					"navigationBarTitleText": "我的钱包",
-					"enablePullDownRefresh": false
-				}
-			}]
-		}, {
-			"root": "pages/wode/jifen",
-			"pages": [{
-				"path": "jifen",
-				"style": {
-					// "navigationStyle": "custom",
-					"navigationBarTitleText": "我的积分",
-					"enablePullDownRefresh": false
-				}
-			}]
-		}, {
-			"root": "pages/wode/anquanzhongxin",
-			"pages": [{
-				"path": "anquanzhongxin",
-				"style": {
-					// "navigationStyle": "custom",
-					"navigationBarTitleText": "安全中心",
-					"enablePullDownRefresh": false
-				}
-			}, {
-				"path": "anquanbaozhang",
-				"style": {
-					// "navigationStyle": "custom",
-					"navigationBarTitleText": "安全中心",
-					"enablePullDownRefresh": false
-				}
-			}, {
-				"path": "jinjilianxiren",
-				"style": {
-					// "navigationStyle": "custom",
-					"navigationBarTitleText": "安全中心",
-					"enablePullDownRefresh": false
-				}
-			}]
-		}, {
-			"root": "pages/wode/yijianfankui",
-			"pages": [{
-				"path": "yijianfankui",
-				"style": {
-					// "navigationStyle": "custom",
-					"navigationBarTitleText": "意见反馈",
-					"enablePullDownRefresh": false
-				}
-			}]
-		}, {
-			"root": "pages/wode/shezhi",
-			"pages": [{
-				"path": "shezhi",
-				"style": {
-					// "navigationStyle": "custom",
-					"navigationBarTitleText": "设置",
 					"enablePullDownRefresh": false
 				}
 			}]

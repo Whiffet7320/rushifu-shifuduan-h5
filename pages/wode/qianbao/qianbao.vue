@@ -7,7 +7,12 @@
 			<view @click="toTixian" class="tit3">发起提现</view>
 		</view>
 		<view class="nav2">
-			<view class="tit1">收益明细</view>
+			<view class="tit1">
+				<view class="txt1-1">收益明细</view>
+				<view class="txt1-2">
+					本周收益：<text class="blue">999</text>
+				</view>
+			</view>
 			<view class="items">
 				<view class="item" v-for="item in 6">
 					<view class="txt1">
@@ -110,8 +115,13 @@
 		opacity: 1;
 		border-radius: 16rpx;
 		padding: 0 26rpx;
-
-		.tit1 {
+		
+		.tit1{
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+		}
+		.txt1-1 {
 			height: 78rpx;
 			line-height: 78rpx;
 			font-size: 32rpx;
@@ -120,6 +130,17 @@
 			color: #000000;
 			opacity: 1;
 			// border-bottom: 1px solid #E6E6E6;;
+		}
+		.txt1-2{
+			font-size: 24rpx;
+			font-family: SimHei;
+			font-weight: 400;
+			line-height: 38rpx;
+			color: #999999;
+			.blue{
+				color: #4988FD;
+				font-size: 28rpx;
+			}
 		}
 
 		.items {

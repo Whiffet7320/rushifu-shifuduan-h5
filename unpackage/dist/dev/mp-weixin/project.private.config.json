@@ -89,6 +89,12 @@
           "pathName": "pages/index/dingdantijiao/shangchengTijiaodingdan",
           "query": "",
           "scene": null
+        },
+        {
+          "name": "pages/index/fabuxuqiu/shifuxiangqin",
+          "pathName": "pages/index/fabuxuqiu/shifuxiangqin",
+          "query": "",
+          "scene": null
         }
       ]
     }

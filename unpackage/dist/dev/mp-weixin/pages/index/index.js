@@ -97,17 +97,17 @@ __webpack_require__.r(__webpack_exports__);
 var components
 try {
   components = {
-    uPicker: function() {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-picker/u-picker */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-picker/u-picker")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-picker/u-picker.vue */ 397))
+    uSelect: function() {
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-select/u-select */ "node-modules/uview-ui/components/u-select/u-select").then(__webpack_require__.bind(null, /*! uview-ui/components/u-select/u-select.vue */ 407))
     },
     uIcon: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */ "node-modules/uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 407))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */ "node-modules/uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 414))
     },
     uInput: function() {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-input/u-input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-input/u-input")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-input/u-input.vue */ 414))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-input/u-input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-input/u-input")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-input/u-input.vue */ 421))
     },
     uSwiper: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-swiper/u-swiper */ "node-modules/uview-ui/components/u-swiper/u-swiper").then(__webpack_require__.bind(null, /*! uview-ui/components/u-swiper/u-swiper.vue */ 422))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-swiper/u-swiper */ "node-modules/uview-ui/components/u-swiper/u-swiper").then(__webpack_require__.bind(null, /*! uview-ui/components/u-swiper/u-swiper.vue */ 429))
     }
   }
 } catch (e) {
@@ -338,6 +338,7 @@ var _default =
 {
   data: function data() {
     return {
+      cityList: [], //城市列表
       nav1Show: false,
       keyword: '',
       bannerList: [{
@@ -367,12 +368,39 @@ var _default =
     this.getData();
   },
   methods: {
-    getData: function getData() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var res;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
+    getData: function getData() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var res, keymap;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.next = 2;return (
                   _this.$api.cities());case 2:res = _context.sent;
-                console.log(res);case 4:case "end":return _context.stop();}}}, _callee);}))();
+                console.log(res);
+                _this.cityList = res.data;
+                keymap = {
+                  name: "label",
+                  id: 'value' };
+
+                _this.cityList.forEach(function (ele) {
+                  Object.keys(ele).map(function (keys) {
+                    var newKey = keymap[keys];
+                    if (newKey) {
+                      ele[newKey] = ele[keys];
+                      delete ele[keys];
+                    }
+                    if (ele.children && ele.children.length > 0) {
+                      ele.children.forEach(function (item) {
+                        var newKey2 = keymap[keys];
+                        if (newKey2) {
+                          item[newKey2] = item[keys];
+                          delete item[keys];
+                        }
+                      });
+                    }
+                  });
+                });
+                console.log(_this.cityList);case 8:case "end":return _context.stop();}}}, _callee);}))();
     },
     changeCity: function changeCity() {
       this.nav1Show = true;
+    },
+    changeCity2: function changeCity2(e) {
+      console.log(e);
     },
     toZhuanpan: function toZhuanpan() {
       uni.navigateTo({
