@@ -2,10 +2,11 @@
 	<view class="index">
 		<view class="nav1">
 			<view class="nav1-left">
-				<image class="pic1" src="/static/img/1229310763000_mthumb.png" mode=""></image>
-				<view class="tit1">
+				<image v-if='user' class="pic1" :src="user.avatar" mode=""></image>
+				<image v-else class="pic1" src="/static/img/1229310763000_mthumb.png" mode=""></image>
+				<view v-if='user' class="tit1">
 					<view class="tit1-1">
-						<view class="txt1">陈师傅</view>
+						<view class="txt1">{{user.nick_name}}</view>
 						<view class="txt2">
 							<image class="pic2" src="/static/image/zu18.png" mode=""></image>
 							<view class="txt2-1">12枚</view>
@@ -16,8 +17,9 @@
 						<view class="txt1">暂无等级</view>
 					</view>
 				</view>
+				<view class="tit2" @click="toLogin" v-else>请先登录</view>
 			</view>
-			<u-icon name="arrow-right" color="#999999" size="28"></u-icon>
+			<u-icon @click='toXiugaixinxi' name="arrow-right" color="#999999" size="28"></u-icon>
 		</view>
 		<view class="nav2">
 			<view class="item">
@@ -28,7 +30,7 @@
 				<u-icon name="arrow-right" color="#989898" size="28"></u-icon>
 			</view>
 			<view class="heng"></view>
-			<view class="item">
+			<view class="item" @click="toJinengzhongxin">
 				<image class="pic2" src="/static/image/weixiu.png" mode=""></image>
 				<view class="txt">
 					<view class="txt1">技能中心</view>
@@ -36,7 +38,7 @@
 				<u-icon name="arrow-right" color="#989898" size="28"></u-icon>
 			</view>
 			<view class="heng"></view>
-			<view class="item">
+			<view class="item" @click="toQianbao">
 				<image class="pic1" src="/static/image/qianbao.png" mode=""></image>
 				<view class="txt">
 					<view class="txt1">钱包余额</view>
@@ -46,8 +48,8 @@
 			</view>
 		</view>
 		<view class="nav3">
-			<image class="pic1" src="/static/image/zhengshu.png" mode=""></image>
-			<view class="txt3-1">自主经营证书</view>
+			<image @click="toZizhujinyingzhengshu" class="pic1" src="/static/image/zhengshu.png" mode=""></image>
+			<view @click="toZizhujinyingzhengshu" class="txt3-1">自主经营证书</view>
 			<image @click="toShifuguifanshouce" class="pic2" src="/static/image/shouce.png" mode=""></image>
 			<view @click="toShifuguifanshouce" class="txt3-1">师傅规范手册</view>
 		</view>
@@ -56,38 +58,56 @@
 
 <script>
 	export default {
+		data() {
+			return {
+				user: null,
+			}
+		},
+		onShow(){
+			if(uni.getStorageSync('myUser')){
+				this.user = uni.getStorageSync('myUser');
+			}
+			// console.log(this.user,1111)
+			this.getData()
+		},
 		methods:{
+			async getData(){
+				const res = await this.$api.userInfo()
+				// console.log(res)
+				this.user = {
+					...res.data
+				}
+			},
+			toXiugaixinxi(){
+				uni.navigateTo({
+					url:'/pages/wode/xiugaixinxi/xiugaixinxi'
+				})
+			},
+			toLogin(){
+				uni.navigateTo({
+					url:'/pages/wode/zhanghaodenglu/zhanghaodenglu'
+				})
+			},
+			toZizhujinyingzhengshu(){
+				uni.navigateTo({
+					url:'/pages/wode/zihujinyingzhengshu/zihujinyingzhengshu'
+				})
+			},
 			toShifuguifanshouce(){
 				uni.navigateTo({
 					url:'/pages/wode/shifuguifanshouce/shifuguifanshouce'
 				})
 			},
-		},
-		// 用户点击右上角分享转发
-		onShareAppMessage: async function() {
-			const res = await this.$api.userShare({
-				way: 2,
-				product_id: this.product_id
-			});
-			// console.log(res)
-
-			var title = '分销商城app'; //data，return 数据title
-			return {
-				title: title || '',
-				path: `/pages/index/index?scene=0_${res.share_userid}`,
-			}
-		},
-		//用户点击右上角分享朋友圈
-		onShareTimeline: async function() {
-			const res = await this.$api.userShare({
-				way: 2,
-				product_id: this.product_id
-			});
-			var title = '分销商城app'; //data，return 数据title
-			return {
-				title: title || '',
-				path: `/pages/index/index?scene=0_${res.share_userid}`,
-			}
+			toQianbao(){
+				uni.navigateTo({
+					url:'/pages/wode/qianbao/qianbao'
+				})
+			},
+			toJinengzhongxin(){
+				uni.navigateTo({
+					url:'/pages/wode/jinengzhongxin/jinengzhongxin'
+				})
+			},
 		},
 	}
 </script>
@@ -181,7 +201,21 @@
 					}
 				}
 			}
-
+			.tit2 {
+				margin-left: 54rpx;
+				width: 338rpx;
+				height: 96rpx;
+				background: #CCCCCC ;
+				opacity: 1;
+				border-radius: 48rpx;
+				font-size: 40rpx;
+				font-family: Segoe UI;
+				font-weight: 400;
+				line-height: 54rpx;
+				color: #FFFFFF;
+				text-align: center;
+				line-height: 96rpx;
+			}
 		}
 	}
 	.nav2 {
@@ -242,7 +276,7 @@
 		}
 	}
 	.nav3{
-		margin-left: 20rpx;
+		margin-left: 30rpx;
 		width: 690rpx;
 		height: 88rpx;
 		background: #FFFFFF;

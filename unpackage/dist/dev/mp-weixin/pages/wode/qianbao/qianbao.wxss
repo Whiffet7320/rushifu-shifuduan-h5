@@ -123,6 +123,17 @@ page {
   padding: 0 26rpx;
 }
 .nav2 .tit1.data-v-16a5500a {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+}
+.nav2 .txt1-1.data-v-16a5500a {
   height: 78rpx;
   line-height: 78rpx;
   font-size: 32rpx;
@@ -130,6 +141,17 @@ page {
   font-weight: 400;
   color: #000000;
   opacity: 1;
+}
+.nav2 .txt1-2.data-v-16a5500a {
+  font-size: 24rpx;
+  font-family: SimHei;
+  font-weight: 400;
+  line-height: 38rpx;
+  color: #999999;
+}
+.nav2 .txt1-2 .blue.data-v-16a5500a {
+  color: #4988FD;
+  font-size: 28rpx;
 }
 .nav2 .items.data-v-16a5500a {
   height: 677rpx;

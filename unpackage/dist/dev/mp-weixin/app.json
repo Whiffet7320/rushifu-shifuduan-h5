@@ -1,8 +1,6 @@
 {
   "pages": [
     "pages/index/index",
-    "pages/fenlei/fenlei",
-    "pages/gouwuche/gouwuche",
     "pages/dingdan/dingdan",
     "pages/wode/wode"
   ],
@@ -26,38 +24,6 @@
       ]
     },
     {
-      "root": "pages/index/sousuo",
-      "pages": [
-        "sousuo",
-        "sousuoshangping"
-      ]
-    },
-    {
-      "root": "pages/index/shangpinxiangqin",
-      "pages": [
-        "shangpinxiangqin"
-      ]
-    },
-    {
-      "root": "pages/index/shouhuoxinxi",
-      "pages": [
-        "shouhuoxinxi",
-        "xinjian"
-      ]
-    },
-    {
-      "root": "pages/index/zhuanpan",
-      "pages": [
-        "zhuanpan"
-      ]
-    },
-    {
-      "root": "pages/index/rushangcheng",
-      "pages": [
-        "rushangcheng"
-      ]
-    },
-    {
       "root": "pages/index/dingdantijiao",
       "pages": [
         "dingdantijiao",
@@ -66,18 +32,35 @@
       ]
     },
     {
-      "root": "pages/index/fabuxuqiu",
+      "root": "pages/index/dingdanxinxi",
       "pages": [
-        "fabuxuqiu",
-        "xiadan",
-        "baojiaShifuxinxi",
-        "shifuxiangqin"
+        "dingdanxinxi",
+        "baojia"
       ]
     },
     {
-      "root": "pages/wode/weixinshouquan",
+      "root": "pages/wode/zhanghaodenglu",
       "pages": [
-        "weixinshouquan"
+        "zhanghaodenglu",
+        "zhuce"
+      ]
+    },
+    {
+      "root": "pages/wode/shifuguifanshouce",
+      "pages": [
+        "shifuguifanshouce"
+      ]
+    },
+    {
+      "root": "pages/wode/jinengzhongxin",
+      "pages": [
+        "jinengzhongxin"
+      ]
+    },
+    {
+      "root": "pages/wode/zihujinyingzhengshu",
+      "pages": [
+        "zihujinyingzhengshu"
       ]
     },
     {
@@ -88,42 +71,10 @@
       ]
     },
     {
-      "root": "pages/wode/youhuiquan",
-      "pages": [
-        "youhuiquan"
-      ]
-    },
-    {
       "root": "pages/wode/qianbao",
       "pages": [
         "qianbao",
         "tixian"
-      ]
-    },
-    {
-      "root": "pages/wode/jifen",
-      "pages": [
-        "jifen"
-      ]
-    },
-    {
-      "root": "pages/wode/anquanzhongxin",
-      "pages": [
-        "anquanzhongxin",
-        "anquanbaozhang",
-        "jinjilianxiren"
-      ]
-    },
-    {
-      "root": "pages/wode/yijianfankui",
-      "pages": [
-        "yijianfankui"
-      ]
-    },
-    {
-      "root": "pages/wode/shezhi",
-      "pages": [
-        "shezhi"
       ]
     }
   ],
@@ -146,18 +97,6 @@
         "text": "首页"
       },
       {
-        "pagePath": "pages/fenlei/fenlei",
-        "iconPath": "static/img/nav-fl.png",
-        "selectedIconPath": "static/img/nav-fl-active.png",
-        "text": "分类"
-      },
-      {
-        "pagePath": "pages/gouwuche/gouwuche",
-        "iconPath": "static/img/nav-gwc.png",
-        "selectedIconPath": "static/img/nav-gwc-active.png",
-        "text": "购物车"
-      },
-      {
         "pagePath": "pages/dingdan/dingdan",
         "iconPath": "static/img/nav-dd.png",
         "selectedIconPath": "static/img/nav-dd-active.png",
@@ -171,5 +110,6 @@
       }
     ]
   },
-  "usingComponents": {}
+  "usingComponents": {},
+  "sitemapLocation": "sitemap.json"
 }

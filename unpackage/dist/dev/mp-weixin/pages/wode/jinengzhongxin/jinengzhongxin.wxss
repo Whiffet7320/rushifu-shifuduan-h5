@@ -1,0 +1,298 @@
+@charset "UTF-8";
+/**
+ * 这里是uni-app内置的常用样式变量
+ *
+ * uni-app 官方扩展插件及插件市场（https://ext.dcloud.net.cn）上很多三方插件均使用了这些样式变量
+ * 如果你是插件开发者，建议你使用scss预处理，并在插件代码中直接使用这些变量（无需 import 这个文件），方便用户通过搭积木的方式开发整体风格一致的App
+ *
+ */
+/**
+ * 如果你是App开发者（插件使用者），你可以通过修改这些变量来定制自己的插件主题，实现自定义主题功能
+ *
+ * 如果你的项目同样使用了scss预处理，你也可以直接在你的 scss 代码中使用如下变量，同时无需 import 这个文件
+ */
+/* 颜色变量 */
+/* 行为相关颜色 */
+/* 文字基本颜色 */
+/* 背景颜色 */
+/* 边框颜色 */
+/* 尺寸变量 */
+/* 文字尺寸 */
+/* 图片尺寸 */
+/* Border Radius */
+/* 水平间距 */
+/* 垂直间距 */
+/* 透明度 */
+/* 文章场景相关 */
+.index.data-v-9bbd499c {
+  position: relative;
+}
+.top.data-v-9bbd499c {
+  width: 750rpx;
+  height: 260rpx;
+  opacity: 1;
+  background: -webkit-linear-gradient(left, #4d53fd, #4d8bfd);
+  background: linear-gradient(90deg, #4d53fd, #4d8bfd);
+}
+.top .arrow-left.data-v-9bbd499c {
+  padding-top: 78rpx;
+  margin-left: 22rpx;
+}
+.top .tit1.data-v-9bbd499c {
+  margin-top: 20rpx;
+  margin-left: 32rpx;
+  font-size: 48rpx;
+  font-family: Segoe UI, Segoe UI-Bold;
+  font-weight: 700;
+  color: #ffffff;
+}
+.top .tit2.data-v-9bbd499c {
+  margin-top: 2rpx;
+  margin-left: 32rpx;
+  font-size: 24rpx;
+  font-family: Segoe UI, Segoe UI-Regular;
+  font-weight: 400;
+  color: #ffffff;
+}
+.nav2 .u-wrap.data-v-9bbd499c {
+  height: calc(100vh);
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+}
+.nav2 .u-search-box.data-v-9bbd499c {
+  padding: 18rpx 30rpx;
+}
+.nav2 .u-menu-wrap.data-v-9bbd499c {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  overflow: hidden;
+}
+.nav2 .u-search-inner.data-v-9bbd499c {
+  background-color: #eaeaea;
+  border-radius: 100rpx;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  padding: 10rpx 16rpx;
+}
+.nav2 .u-search-text.data-v-9bbd499c {
+  font-size: 26rpx;
+  margin-left: 10rpx;
+}
+.nav2 .u-tab-view.data-v-9bbd499c {
+  width: 200rpx;
+  height: 100%;
+}
+.nav2 .u-tab-item.data-v-9bbd499c {
+  height: 110rpx;
+  background: #f6f6f6;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  font-size: 28rpx;
+  color: #444;
+  font-weight: 400;
+  line-height: 1;
+  font-family: Segoe UI;
+}
+.nav2 .u-tab-item-active.data-v-9bbd499c {
+  position: relative;
+  color: #4D8BFD;
+  font-weight: 600;
+  font-family: Segoe UI;
+}
+.nav2 .u-tab-item-active.data-v-9bbd499c::before {
+  content: "";
+  position: absolute;
+  height: 32rpx;
+  left: 0;
+  top: 39rpx;
+}
+.nav2 .u-tab-view.data-v-9bbd499c {
+  height: 100%;
+}
+.nav2 .right-box.data-v-9bbd499c {
+  width: 546rpx;
+  height: calc(100vh - 260rpx);
+  margin-right: 24rpx;
+  border-radius: 16rpx;
+  background-color: #fff;
+}
+.nav2 .class-item.data-v-9bbd499c {
+  background-color: #fff;
+  padding: 0 30rpx;
+  border-radius: 8rpx;
+}
+.nav2 .item-title.data-v-9bbd499c {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  padding-top: 26rpx;
+  font-size: 26rpx;
+  font-weight: bold;
+  margin-bottom: 42rpx;
+  margin-left: 14rpx;
+}
+.nav2 .item-title2.data-v-9bbd499c {
+  padding-top: 26rpx;
+  font-size: 26rpx;
+  font-weight: bold;
+  margin-bottom: 42rpx;
+  color: #666666;
+}
+.nav2 .item-menu-name.data-v-9bbd499c {
+  background: #e9f2fd;
+  border-radius: 16rpx;
+  padding: 14rpx 26rpx;
+  text-align: center;
+  width: 90%;
+  font-weight: normal;
+  font-size: 20rpx;
+  color: #707070;
+}
+.nav2 .item-menu-name.active.data-v-9bbd499c {
+  background: #4d8bfd;
+  color: #FFFFFF;
+}
+.nav2 .u-tab-view.menu-scroll-view.data-v-9bbd499c {
+  height: calc(100vh - 260rpx);
+  background: #f6f6f6;
+}
+.nav2 .uni-scroll-view.data-v-9bbd499c {
+  height: calc(100vh - 260rpx);
+}
+.nav2 .item-container.data-v-9bbd499c {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+          flex-wrap: wrap;
+}
+.nav2 .thumb-box.data-v-9bbd499c {
+  width: 33.333333%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  margin-bottom: 42rpx;
+}
+.nav2 .thumb-box2.data-v-9bbd499c {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  margin-bottom: 22rpx;
+}
+.nav2 .thumb-box2 .item-menu-image2.data-v-9bbd499c {
+  width: 184rpx;
+  height: 184rpx;
+}
+.nav2 .thumb-box2 .box-right.data-v-9bbd499c {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+          flex-direction: column;
+  margin-left: 12rpx;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+}
+.nav2 .thumb-box2 .box-right .txt1.data-v-9bbd499c {
+  font-size: 28rpx;
+  font-family: Segoe UI;
+  font-weight: 400;
+  line-height: 38rpx;
+  color: #000000;
+}
+.nav2 .thumb-box2 .box-right .txt2.data-v-9bbd499c {
+  font-size: 20rpx;
+  font-family: Segoe UI;
+  font-weight: 400;
+  line-height: 28rpx;
+  color: #666666;
+}
+.nav2 .thumb-box2 .box-right .txt3.data-v-9bbd499c {
+  font-size: 28rpx;
+  font-family: Segoe UI;
+  font-weight: 400;
+  line-height: 38rpx;
+  color: #4D8BFD;
+}
+.nav2 .item-menu-image.data-v-9bbd499c {
+  width: 120rpx;
+  height: 120rpx;
+}
+.footer.data-v-9bbd499c {
+  padding: 0 60rpx;
+  border-top: 2rpx solid #e6e6e6;
+  position: fixed;
+  bottom: 0;
+  width: 750rpx;
+  height: 136rpx;
+  background: #ffffff;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+          justify-content: space-between;
+}
+.footer .txt1.data-v-9bbd499c {
+  font-size: 28rpx;
+  font-family: Segoe UI, Segoe UI-Regular;
+  font-weight: 400;
+  color: #000000;
+}
+.footer .txt2.data-v-9bbd499c {
+  width: 252rpx;
+  height: 80rpx;
+  background: #b1cbfd;
+  border-radius: 40rpx;
+  font-size: 28rpx;
+  font-family: Segoe UI, Segoe UI-Regular;
+  font-weight: 400;
+  text-align: center;
+  line-height: 80rpx;
+  color: #ffffff;
+}
+

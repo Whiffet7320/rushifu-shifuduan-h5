@@ -10,19 +10,6 @@
 			}
 		},
 		{
-			"path": "pages/fenlei/fenlei",
-			"style": {
-				"navigationBarTitleText": "分类"
-			}
-		},
-		{
-			"path": "pages/gouwuche/gouwuche",
-			"style": {
-				"navigationBarTitleText": "购物车",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
 			"path": "pages/dingdan/dingdan",
 			"style": {
 				// "navigationStyle": "custom",
@@ -73,77 +60,6 @@
 			}]
 		},
 		{
-			"root": "pages/index/sousuo",
-			"pages": [{
-				"path": "sousuo",
-				"style": {
-					// "navigationStyle": "custom",
-					"navigationBarTitleText": "搜索",
-					"enablePullDownRefresh": false
-				}
-			}, {
-				"path": "sousuoshangping",
-				"style": {
-					// "navigationStyle": "custom",
-					"onReachBottomDistance": 400,
-					"navigationBarTitleText": "商品",
-					"enablePullDownRefresh": false
-				}
-			}]
-		},
-		{
-			"root": "pages/index/shangpinxiangqin",
-			"pages": [{
-				"path": "shangpinxiangqin",
-				"style": {
-					// "navigationStyle": "custom",
-					"navigationBarTitleText": "商品详情",
-					"enablePullDownRefresh": false
-				}
-			}]
-		},
-		{
-			"root": "pages/index/shouhuoxinxi",
-			"pages": [{
-				"path": "shouhuoxinxi",
-				"style": {
-					// "navigationStyle": "custom",
-					"navigationBarTitleText": "收货信息",
-					"enablePullDownRefresh": false
-				}
-			}, {
-				"path": "xinjian",
-				"style": {
-					// "navigationStyle": "custom",
-					"navigationBarTitleText": "新建地址",
-					"enablePullDownRefresh": false
-				}
-			}]
-		}, {
-			"root": "pages/index/zhuanpan",
-			"pages": [{
-				"path": "zhuanpan",
-				"style": {
-					// "navigationStyle": "custom",
-					"navigationBarTitleText": "抽奖大转盘",
-					"enablePullDownRefresh": false,
-					"navigationBarBackgroundColor": "#C91919",
-					"navigationBarTextStyle": "white"
-				}
-			}]
-		}, {
-			"root": "pages/index/rushangcheng",
-			"pages": [{
-				"path": "rushangcheng",
-				"style": {
-					// "navigationStyle": "custom",
-					"navigationBarTitleText": "如商城",
-					"enablePullDownRefresh": false,
-					"navigationBarBackgroundColor": "#5694FF",
-					"navigationBarTextStyle": "white"
-				}
-			}]
-		}, {
 			"root": "pages/index/dingdantijiao",
 			"pages": [{
 				"path": "dingdantijiao",
@@ -169,38 +85,43 @@
 			}]
 		},
 		{
-			"root": "pages/index/fabuxuqiu",
+			"root": "pages/index/dingdanxinxi",
 			"pages": [{
-				"path": "fabuxuqiu",
+				"path": "dingdanxinxi",
 				"style": {
 					// "navigationStyle": "custom",
-					"navigationBarTitleText": "发布需求",
-					"enablePullDownRefresh": false,
-					"navigationBarTextStyle": "black"
+					"navigationBarTitleText": "订单信息",
+					"enablePullDownRefresh": false
 				}
 			}, {
-				"path": "xiadan",
+				"path": "baojia",
 				"style": {
 					// "navigationStyle": "custom",
-					"navigationBarTitleText": "下单",
-					"enablePullDownRefresh": false,
-					"navigationBarTextStyle": "black"
+					"navigationBarTitleText": "报价",
+					"enablePullDownRefresh": false
 				}
-			}, {
-				"path": "baojiaShifuxinxi",
+			}]
+		}, {
+			"root": "pages/index/suozaidizhi",
+			"pages": [{
+				"path": "suozaidizhi",
 				"style": {
 					// "navigationStyle": "custom",
-					"navigationBarTitleText": "正在报价",
-					"enablePullDownRefresh": false,
-					"navigationBarTextStyle": "black"
+					"navigationBarTextStyle": "white",
+					"navigationBarBackgroundColor": "#292C33",
+					"navigationBarTitleText": "所在地址",
+					"enablePullDownRefresh": false
 				}
-			}, {
-				"path": "shifuxiangqin",
+			}]
+		},
+		{
+			"root": "pages/index/lishijiedan",
+			"pages": [{
+				"path": "lishijiedan",
 				"style": {
 					// "navigationStyle": "custom",
-					"navigationBarTitleText": "师傅详情",
-					"enablePullDownRefresh": false,
-					"navigationBarTextStyle": "black"
+					"navigationBarTitleText": "历史接单",
+					"enablePullDownRefresh": false
 				}
 			}]
 		},
@@ -213,7 +134,7 @@
 					"navigationBarTitleText": "登录",
 					"enablePullDownRefresh": false
 				}
-			},{
+			}, {
 				"path": "zhuce",
 				"style": {
 					"navigationBarTitleText": "账号注册",
@@ -232,29 +153,66 @@
 				}
 			}]
 		},{
+			"root": "pages/wode/xiugaixinxi",
+			"pages": [{
+				"path": "xiugaixinxi",
+				"style": {
+					// "navigationStyle": "custom",
+					"navigationBarTitleText": "修改信息",
+					"enablePullDownRefresh": false
+				}
+			},{
+				"path": "nichengxiugai",
+				"style": {
+					// "navigationStyle": "custom",
+					"navigationBarTitleText": "昵称修改",
+					"enablePullDownRefresh": false
+				}
+			},{
+				"path": "genhuanshoujihao",
+				"style": {
+					// "navigationStyle": "custom",
+					"navigationBarTitleText": "更换手机号",
+					"enablePullDownRefresh": false
+				}
+			},{
+				"path": "mimaxiugai",
+				"style": {
+					// "navigationStyle": "custom",
+					"navigationBarTitleText": "修改密码",
+					"enablePullDownRefresh": false
+				}
+			}]
+		}, {
+			"root": "pages/wode/jinengzhongxin",
+			"pages": [{
+				"path": "jinengzhongxin",
+				"style": {
+					"navigationStyle": "custom",
+					"enablePullDownRefresh": false
+				}
+			}, {
+				"path": "yixuanjineng",
+				"style": {
+					// "navigationStyle": "custom",
+					"navigationBarTitleText": "已选技能",
+					"enablePullDownRefresh": false
+				}
+			}, {
+				"path": "shenfenyanzheng",
+				"style": {
+					// "navigationStyle": "custom",
+					"navigationBarTitleText": "身份认证",
+					"enablePullDownRefresh": false
+				}
+			}]
+		}, {
 			"root": "pages/wode/zihujinyingzhengshu",
 			"pages": [{
 				"path": "zihujinyingzhengshu",
 				"style": {
 					// "navigationStyle": "custom",
 					"navigationBarTitleText": "自主经营证书",
-					"enablePullDownRefresh": false
-				}
-			}]
-		}, {
-			"root": "pages/wode/shouhuodizhi",
-			"pages": [{
-				"path": "shouhuodizhi",
-				"style": {
-					// "navigationStyle": "custom",
-					"navigationBarTitleText": "收货地址",
-					"enablePullDownRefresh": false
-				}
-			}, {
-				"path": "xinzengdizhi",
-				"style": {
-					// "navigationStyle": "custom",
-					"navigationBarTitleText": "添加/编辑地址",
 					"enablePullDownRefresh": false
 				}
 			}]
@@ -293,16 +251,6 @@
 			"iconPath": "static/img/nav-sy.png",
 			"selectedIconPath": "static/img/nav-sy-active.png",
 			"text": "首页"
-		}, {
-			"pagePath": "pages/fenlei/fenlei",
-			"iconPath": "static/img/nav-fl.png",
-			"selectedIconPath": "static/img/nav-fl-active.png",
-			"text": "分类"
-		}, {
-			"pagePath": "pages/gouwuche/gouwuche",
-			"iconPath": "static/img/nav-gwc.png",
-			"selectedIconPath": "static/img/nav-gwc-active.png",
-			"text": "购物车"
 		}, {
 			"pagePath": "pages/dingdan/dingdan",
 			"iconPath": "static/img/nav-dd.png",

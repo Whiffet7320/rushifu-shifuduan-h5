@@ -1,619 +1,168 @@
 <template>
 	<view class="index">
-		<u-toast ref="uToast" />
-		<u-popup mode="center" closeable width='560' height='762' border-radius='24' v-model="quxiaoDDshow">
-			<view class="pop">
-				<view class="pop-tit">取消订单原因</view>
-				<u-radio-group wrap font-size='32' v-model="quxxiaoDDRal" @change="radioGroupChange">
-					<u-radio name="1">我不想买了</u-radio>
-					<u-radio name="2">地址填写错误</u-radio>
-					<u-radio name="3">信息填写错误</u-radio>
-					<u-radio name="4">红包忘了用</u-radio>
-					<u-radio name="5">有更优惠的平台</u-radio>
-					<u-radio v-if="quxiaoStatus == 2" name="6">师傅服务态度差</u-radio>
-					<u-radio v-if="quxiaoStatus == 2" name="7">师傅不专业</u-radio>
-					<u-radio name="8">其他原因</u-radio>
-				</u-radio-group>
-				<view @click="quxiaoDDSubmit" class="pop-btn">确定</view>
-			</view>
-		</u-popup>
-		<u-mask :show="maskshow" z-index='1' @click="onMask"></u-mask>
-		<u-popup v-model="popupShow" width="650rpx" height="336rpx" mode="center" border-radius="16">
-			<view class="txtt1">789654</view>
-			<view class="txtt2">请勿提前将服务码</view>
-			<view class="txtt2">提前告知师傅以免造成损失</view>
-		</u-popup>
 		<view class="nav1">
-			<u-tag v-if="top1Value!=''" @close='closeTop1' @click="chooesTop(1)" :text="top1Value" mode="dark"
-				shape="circle" closeable />
-			<view v-if="top1Value==''" @click="chooesTop(1)" :class="{'tit1':true,'active':chooseTop1}">商城订单</view>
-			<u-tag v-if="top2Value!=''" @close='closeTop2' @click="chooesTop(2)" :text="top2Value" mode="dark"
-				shape="circle" closeable />
-			<view v-if="top2Value==''" @click="chooesTop(2)" :class="{'tit1':true,'active':chooseTop2}">服务订单</view>
+			<!-- 横向 -->
+			<scroll-view class="scroll-view" scroll-x @scroll="scroll" style="width: 100%;white-space:nowrap;">
+				<image @click="toXiangqin(item.id)" v-for="(item,i) in 3" class="pic1" src="/static/image/mcz8.png"
+					mode="">
+				</image>
+			</scroll-view>
 		</view>
-		<view v-if="chooseTop1" class="nav2">
-			<view @click="cTop1Btn1('全部订单')" :class="{'btn':true,'active':top1Value=='全部订单'}">全部订单</view>
-			<view @click="cTop1Btn1('待付款')" :class="{'btn':true,'active':top1Value=='待付款'}">待付款</view>
-			<view @click="cTop1Btn1('待发货')" :class="{'btn':true,'active':top1Value=='待发货'}">待发货</view>
-			<view @click="cTop1Btn1('待收货')" :class="{'btn':true,'active':top1Value=='待收货'}">待收货</view>
-			<!-- <view @click="cTop1Btn1('待评价')" :class="{'btn':true,'active':top1Value=='待评价'}">待评价</view> -->
-			<view @click="cTop1Btn1('待评价')" :class="{'btn':true,'active':top1Value=='待评价'}">待评价</view>
-			<!-- <view @click="cTop1Btn1('售后')" :class="{'btn':true,'active':top1Value=='售后'}">售后</view> -->
-		</view>
-		<view v-if="chooseTop2" class="nav2">
-			<view @click="cTop2Btn1('全部订单')" :class="{'btn':true,'active':top2Value=='全部订单'}">全部订单</view>
-			<!-- <view @click="cTop2Btn1('发布订单')" :class="{'btn':true,'active':top2Value=='发布订单'}">发布订单</view> -->
-			<!-- <view @click="cTop2Btn1('服务中')" :class="{'btn':true,'active':top2Value=='服务中'}">服务中</view> -->
-			<view @click="cTop2Btn1('等待付款')" :class="{'btn':true,'active':top2Value=='等待付款'}">等待付款</view>
-			<view @click="cTop2Btn1('等待上门')" :class="{'btn':true,'active':top2Value=='等待上门'}">等待上门</view>
-			<view @click="cTop2Btn1('正在服务')" :class="{'btn':true,'active':top2Value=='正在服务'}">正在服务</view>
-			<view @click="cTop2Btn1('已完成')" :class="{'btn':true,'active':top2Value=='已完成'}">已完成</view>
-			<!-- <view @click="cTop2Btn1('售后')" :class="{'btn':true,'active':top2Value=='售后'}">售后</view> -->
-		</view>
-		<view v-if="current == 0" class="items">
-			<view class="item">
-				<!-- 待付款 -->
-				<template>
-					<view class="tit11">
-						<view class="tit1">待付款</view>
-					</view>
-					<view class="titt">
-						<view class="tit2">
-							<view class="txt1">
-								订单编号：<text class="black">2C07222052609</text>
-							</view>
-							<view class="shu"></view>
-							<view @click="fuzhi" class="txt2">复制</view>
-						</view>
-						<view @click="toXiangqin(1)" class="tit1-3">查看详情</view>
-					</view>
-
-					<view class="tit2">
-						<view class="txt1">
-							服务类目：<text class="black">沙发安装</text>
-						</view>
-					</view>
-					<view class="tit2">
-						<view class="txt1">
-							下单时间：<text class="black">2021-07-22 14:39</text>
-						</view>
-					</view>
-					<view class="heng"></view>
-					<view class="tit5">
-						<view class="txt1" @click="quxiaoDD('1')">取消订单</view>
-						<view class="txt2">去支付</view>
-					</view>
-				</template>
-				<!-- 待发货 -->
-				<template>
-					<view class="tit11">
-						<view class="tit1">待发货</view>
-					</view>
-					<view class="titt">
-						<view class="tit2">
-							<view class="txt1">
-								订单编号：<text class="black">2C07222052609</text>
-							</view>
-							<view class="shu"></view>
-							<view @click="fuzhi" class="txt2">复制</view>
-						</view>
-						<view @click="toXiangqin(1)" class="tit1-3">查看详情</view>
-					</view>
-					<view class="tit2">
-						<view class="txt1">
-							服务类目：<text class="black">沙发安装</text>
-						</view>
-					</view>
-					<view class="tit2">
-						<view class="txt1">
-							下单时间：<text class="black">2021-07-22 14:39</text>
-						</view>
-					</view>
-					<view class="heng"></view>
-					<view class="tit5">
-						<view class="txt1" @click="quxiaoDD('1')">取消订单</view>
-						<view class="txt2">修改信息</view>
-					</view>
-				</template>
-				<!-- 待收货 -->
-				<template>
-					<view class="tit11">
-						<view class="tit1">待收货</view>
-						<view class="tit1-1">
-							商品正在配送中......
-						</view>
-					</view>
-					<view class="titt">
-						<view class="tit2">
-							<view class="txt1">
-								快递单号：<text class="black">2C07222052609</text>
-							</view>
-							<view class="shu"></view>
-							<view @click="fuzhi" class="txt2">复制</view>
-						</view>
-						<view @click="toXiangqin(1)" class="tit1-3">查看详情</view>
-					</view>
-					<view class="tit2">
-						<view class="txt1">
-							服务类目：<text class="black">沙发安装</text>
-						</view>
-					</view>
-					<view class="tit2">
-						<view class="txt1">
-							下单时间：<text class="black">2021-07-22 14:39</text>
-						</view>
-					</view>
-					<view class="heng"></view>
-					<view class="tit5">
-						<!-- <view class="txt1">删除订单</view> -->
-						<view class="txt2">确认收货</view>
-					</view>
-				</template>
-				<!-- 确认收货 -->
-				<!-- <template>
-					<view class="tit11">
-						<view class="tit1">确认收货</view>
-						<view class="tit1-2">已签收</view>
-					</view>
-
-					<view class="tit2">
-						<view class="txt1">
-							订单编号：<text class="black">2C07222052609</text>
-						</view>
-						<view class="shu"></view>
-						<view @click="fuzhi" class="txt2">复制</view>
-					</view>
-					<view class="tit2">
-						<view class="txt1">
-							服务类目：<text class="black">沙发安装</text>
-						</view>
-					</view>
-					<view class="tit2">
-						<view class="txt1">
-							下单时间：<text class="black">2021-07-22 14:39</text>
-						</view>
-					</view>
-					<view class="heng"></view>
-					<view class="tit5">
-						<view class="txt1 txt1-1">删除订单</view>
-						<view class="txt4">售后</view>
-						<view class="txt2">去评价</view>
-					</view>
-				</template> -->
-				<!-- 售后 -->
-				<template>
-					<view class="tit11">
-						<view class="tit1">售后</view>
-						<view class="tit1-2">已退款</view>
-					</view>
-
-					<view class="tit2">
-						<view class="txt1">
-							订单编号：<text class="black">2C07222052609</text>
-						</view>
-						<view class="shu"></view>
-						<view @click="fuzhi" class="txt2">复制</view>
-					</view>
-					<view class="tit2">
-						<view class="txt1">
-							服务类目：<text class="black">沙发安装</text>
-						</view>
-					</view>
-					<view class="tit2">
-						<view class="txt1">
-							下单时间：<text class="black">2021-07-22 14:39</text>
-						</view>
-					</view>
-				</template>
-				<!-- 待评价 -->
-				<template>
-					<view class="tit11">
-						<view class="tit1">待评价</view>
-						<view class="tit1-1" style="color:#D7373F ;">已签收</view>
-					</view>
-
-					<view class="titt">
-						<view class="tit2">
-							<view class="txt1">
-								订单编号：<text class="black">2C07222052609</text>
-							</view>
-							<view class="shu"></view>
-							<view @click="fuzhi" class="txt2">复制</view>
-						</view>
-						<view @click="toXiangqin(1)" class="tit1-3">查看详情</view>
-					</view>
-					<view class="tit2">
-						<view class="txt1">
-							服务类目：<text class="black">沙发安装</text>
-						</view>
-					</view>
-					<view class="tit2">
-						<view class="txt1">
-							下单时间：<text class="black">2021-07-22 14:39</text>
-						</view>
-					</view>
-					<view class="heng"></view>
-					<view class="tit5">
-						<!-- <view class="img">
-							<image class="pic1" src="/static/img/1229310763000_mthumb.png" mode=""></image>
-							<view class="tit111">
-								<view class="txt11-1">李师傅</view>
-								<view class="txt11-2">￥200.00</view>
-							</view>
-						</view> -->
-						<view class="txt1 txt1-2">删除订单</view>
-						<view class="txt4">售后</view>
-						<view @click="toPingjia" class="txt2">去评价</view>
-					</view>
-				</template>
-
+		<view class="nav2">
+			<view class="tit1">
+				<view class="txt1">接单列表</view>
+				<image class="pic1" src="/static/image/wodedingdan.png" mode=""></image>
 			</view>
-		</view>
-		<view v-if="current == 1" class="items">
-			<view class="item">
-				<!-- 交易关闭 -->
-				<template>
-					<view class="tit11">
-						<view class="tit1">交易关闭</view>
-						<view @click="toXiangqin(2)" class="tit1-3">查看详情</view>
-					</view>
-					<view class="tit2">
-						<view class="txt1">
-							订单编号：<text class="black">2C07222052609</text>
-						</view>
-						<view class="shu"></view>
-						<view @click="fuzhi" class="txt2">复制</view>
-					</view>
-					<view class="tit2">
-						<view class="txt1">
-							服务类目：<text class="black">沙发安装</text>
+			<view class="nav4">
+				<view @click="changeBtn(1)" :class="{'txt4-1':true,'active':isActive}">报价</view>
+				<view class="shu"></view>
+				<view @click="changeBtn(2)" :class="{'txt4-1':true,'active':!isActive}">定价</view>
+			</view>
+			<view class="items">
+				<!-- 				<view class="item" @click="toChakandingdan">
+					<image class="pic1" src="/static/img/1229310763000_mthumb.png" mode=""></image>
+					<view class="item-right">
+						<view class="tit1">送货到家并安装</view>
+						<view class="tit2">直接过滤过期未报价将自动关闭订单</view>
+						<view class="tit3">
+							<view class="txt1">时间截止</view>
+							<view class="txt1">2天23小时52分</view>
 						</view>
 					</view>
-					<view class="tit2">
-						<view class="txt1">
-							下单时间：<text class="black">2021-07-22 14:39</text>
-						</view>
-					</view>
-					<view class="tit3">
-						<image class="pic1" src="/static/img/1229310763000_mthumb.png" mode=""></image>
-						<view class="txt1" @click="toxuanzeshifu">
-							<view class="txt1-1">1位师傅已报价</view>
-							<u-icon name="arrow-right" color="#707070" size="20"></u-icon>
-						</view>
-					</view>
-					<view class="tit4">￥200.00</view>
-					<view class="heng"></view>
-					<view class="tit5">
-						<view class="txt1">删除订单</view>
-						<view class="txt2">重新发布</view>
-					</view>
-				</template>
-				<!-- 发布订单 -->
-				<!-- <template>
-					<view class="tit11">
-						<view class="tit1">发布订单</view>
-						<view class="tit1-3">查看详情</view>
-					</view>
-					<view class="tit2">
-						<view class="txt1">
-							订单编号：<text class="black">2C07222052609</text>
-						</view>
-						<view class="shu"></view>
-						<view @click="fuzhi" class="txt2">复制</view>
-					</view>
-					<view class="tit2">
-						<view class="txt1">
-							服务类目：<text class="black">沙发安装</text>
-						</view>
-					</view>
-					<view class="tit2">
-						<view class="txt1">
-							下单时间：<text class="black">2021-07-22 14:39</text>
-						</view>
-					</view>
-					<view class="tit3">
-						<image class="pic1" src="/static/img/1229310763000_mthumb.png" mode=""></image>
-						<view class="txt1">
-							<view class="txt1-1">1位师傅已报价</view>
-							<u-icon name="arrow-right" color="#707070" size="20"></u-icon>
-						</view>
-					</view>
-					<view class="tit4">￥200.00</view>
-					<view class="heng"></view>
-					<view class="tit5">
-						<view class="txt3">倒计时：23:59:59</view>
-						<view class="txt1">删除订单</view>
-						<view class="txt2">重新发布</view>
-					</view>
-				</template> -->
-				<!-- 等待付款 -->
-				<template>
-					<view class="tit11">
-						<view class="tit1">等待付款</view>
-						<view @click="toXiangqin(2)" class="tit1-3">查看详情</view>
-					</view>
-					<view class="tit2">
-						<view class="txt1">
-							订单编号：<text class="black">2C07222052609</text>
-						</view>
-						<view class="shu"></view>
-						<view @click="fuzhi" class="txt2">复制</view>
-					</view>
-					<view class="tit2">
-						<view class="txt1">
-							服务类目：<text class="black">沙发安装</text>
-						</view>
-					</view>
-					<view class="tit2">
-						<view class="txt1">
-							下单时间：<text class="black">2021-07-22 14:39</text>
-						</view>
-					</view>
-					<view class="tit3">
-						<image class="pic1" src="/static/img/1229310763000_mthumb.png" mode=""></image>
-						<view class="txt1" @click="toxuanzeshifu">
-							<view v-if="!ischooseShifu" class="txt1-1">1位师傅已报价</view>
-							<view v-else class="txt1-1">师傅已接单</view>
-							<u-icon name="arrow-right" color="#707070" size="20"></u-icon>
-						</view>
-					</view>
-					<!-- <view class="tit4">￥200.00</view> -->
-					<view class="heng"></view>
-					<view class="tit5">
-						<view v-if="!ischooseShifu" class="txt3">倒计时：23:59:59</view>
-						<view class="txt1" @click="quxiaoDD('2')">取消订单</view>
-						<view @click="toPay" :class="{'txt2':true,'active':!ischooseShifu}">去支付</view>
-					</view>
-				</template>
-				<!-- 确认收货 -->
-				<!-- <template>
-					<view class="tit11">
-						<view class="tit1">确认收货</view>
-						<view class="tit1-2" style="transform: translateX(180rpx);">已签收</view>
-						<view class="tit1-3">查看详情</view>
-					</view>
-
-					<view class="tit2">
-						<view class="txt1">
-							订单编号：<text class="black">2C07222052609</text>
-						</view>
-						<view class="shu"></view>
-						<view @click="fuzhi" class="txt2">复制</view>
-					</view>
-					<view class="tit2">
-						<view class="txt1">
-							服务类目：<text class="black">沙发安装</text>
-						</view>
-					</view>
-					<view class="tit2">
-						<view class="txt1">
-							下单时间：<text class="black">2021-07-22 14:39</text>
-						</view>
-					</view>
-					<view class="tit3">
-						<image class="pic1" src="/static/img/1229310763000_mthumb.png" mode=""></image>
-					</view>
-					<view class="tit4">￥200.00</view>
-					<view class="heng"></view>
-					<view class="tit5">
-						<view class="txt1">删除订单</view>
-						<view class="txt2">已收货</view>
-					</view>
-				</template> -->
-				<!-- 等待上门 -->
-				<template>
-					<view class="tit11">
-						<view class="tit1">等待上门</view>
-						<view class="tit1-3">查看详情</view>
-					</view>
-					<view class="tit2">
-						<view class="txt1">
-							订单编号：<text class="black">2C07222052609</text>
-						</view>
-						<view class="shu"></view>
-						<view @click="fuzhi" class="txt2">复制</view>
-					</view>
-					<view class="tit2">
-						<view class="txt1">
-							服务类目：<text class="black">沙发安装</text>
-						</view>
-					</view>
-					<view class="tit2">
-						<view class="txt1">
-							服务时间：<text class="black">2021-07-22 14:39</text>
-						</view>
-					</view>
-					<view class="tit3">
-						<view class="txt3-1">
-							<image class="pic1" src="/static/img/1229310763000_mthumb.png" mode=""></image>
-							<view class="txt33">
-								<view class="txt3-1-1">请尽快与李师傅协商具体上门信息</view>
-								<view class="txt3-1-2">￥200.00</view>
+				</view> -->
+				<template v-if="list.length != 0">
+					<view class="item" v-for="item in list" @click="toChakandingdan(item)">
+						<image class="pic1" :src="item.images[0]" mode=""></image>
+						<view class="item-right">
+							<view class="tit1">{{item.item.name}}</view>
+							<view class="tit2-1">
+								<image class="pic2-1" src="/static/image/zu19.png" mode=""></image>
+								<view class="txt2-1">{{item.address.address}}-{{item.address.sub_address}}</view>
+							</view>
+							<view class="tit3-1">
+								<!-- 报价 -->
+								<view v-if="type == 1" class="txt3-1-1">{{item.quote_count}}人已报价</view>
+								<!-- 定价 -->
+								<view v-else class="txt3-1-1 dingjia">￥<text class="big">{{item.item.price}}</text>
+								</view>
+								<view class="txt3-1-2">
+									<view class="txt3-1-2-1">时间截止</view>
+									<view class="txt3-1-2-2">{{item.timecha}}</view>
+								</view>
 							</view>
 						</view>
-						<image class="picc" src="/static/img/zu61.png" mode=""></image>
-					</view>
-					<view class="heng"></view>
-					<view class="tit5">
-						<view class="txt5">
-							<view class="txt5-1">请勿提前将服务码</view>
-							<view class="txt5-1">提前告知师傅以免造成损失</view>
-						</view>
-						<view class="txt1">删除订单</view>
-						<view @click="popupShow = true" class="txt2">服务码</view>
 					</view>
 				</template>
-				<!-- 正在服务 -->
-				<template>
-					<view class="tit11">
-						<view class="tit1">正在服务</view>
-						<view class="tit1-3">查看详情</view>
-					</view>
-					<view class="tit2">
-						<view class="txt1">
-							订单编号：<text class="black">2C07222052609</text>
-						</view>
-						<view class="shu"></view>
-						<view @click="fuzhi" class="txt2">复制</view>
-					</view>
-					<view class="tit2">
-						<view class="txt1">
-							服务类目：<text class="black">沙发安装</text>
-						</view>
-					</view>
-					<view class="tit2">
-						<view class="txt1">
-							服务时间：<text class="black">2021-07-22 14:39</text>
-						</view>
-					</view>
-
-					<view class="heng"></view>
-					<view class="tit5">
-						<view class="img">
-							<image class="pic1" src="/static/img/1229310763000_mthumb.png" mode=""></image>
-							<view class="tit111">
-								<view class="txt11-1">李师傅</view>
-								<view class="txt11-2">￥200.00</view>
-							</view>
-						</view>
-						<!-- <view class="txt1 txt1-2">删除订单</view> -->
-						<view class="txt1 txt1-3">售后</view>
-						<view class="txt2">完成服务</view>
-					</view>
-				</template>
-				<!-- 已完成 -->
-				<template>
-					<view class="tit11">
-						<view class="tit1">已完成</view>
-						<view class="tit1-3">查看详情</view>
-					</view>
-					<view class="tit2">
-						<view class="txt1">
-							订单编号：<text class="black">2C07222052609</text>
-						</view>
-						<view class="shu"></view>
-						<view @click="fuzhi" class="txt2">复制</view>
-					</view>
-					<view class="tit2">
-						<view class="txt1">
-							服务类目：<text class="black">沙发安装</text>
-						</view>
-					</view>
-					<view class="tit2">
-						<view class="txt1">
-							服务时间：<text class="black">2021-07-22 14:39</text>
-						</view>
-					</view>
-
-					<view class="heng"></view>
-					<view class="tit5">
-						<view class="img">
-							<image class="pic1" src="/static/img/1229310763000_mthumb.png" mode=""></image>
-							<view class="tit111">
-								<view class="txt11-1">李师傅</view>
-								<view class="txt11-2">￥200.00</view>
-							</view>
-						</view>
-						<!-- <view class="txt1 txt1-2">删除订单</view> -->
-						<view @click="toPingjia" style="margin-left: 335rpx;" class="txt2">去评价</view>
-					</view>
-				</template>
+				<view v-else class="noDD">
+					暂无订单~
+				</view>
 			</view>
 		</view>
 	</view>
 </template>
 
 <script>
+	import {
+		mapState
+	} from "vuex";
 	export default {
+		computed: {
+			...mapState(["dingdanliebiaopage", "dingdanliebiaopageSize"]),
+		},
+		watch: {
+			dingdanliebiaopage: function(page) {
+				console.log('ddpage')
+				this.$store.commit("dingdanliebiaopage", page);
+				if (this.dingdanliebiaopage != 1) {
+					this.getData();
+				}
+			},
+		},
 		data() {
 			return {
-				quxiaoStatus:'1',
-				quxxiaoDDRal:'',
-				quxiaoDDshow: false,
-				ischooseShifu: true,
-				popupShow: false,
-				maskshow: false,
-				chooseTop1: false,
-				chooseTop2: false,
-				top1Value: '',
-				top2Value: '',
-				current: 0,
+				list: [],
+				isActive: true,
+				type: 1,
+				clock: false,
+				// 加载
+				status: 'loadmore',
+				iconType: 'flower',
+				loadText: {
+					loadmore: '上拉加载更多',
+					loading: '正在加载...',
+					nomore: '没有了更多了'
+				},
 			}
 		},
+		async onShow() {
+			this.list = [];
+			this.getData()
+			this.$store.commit("dingdanliebiaopage", 1);
+		},
+		onReachBottom() {
+			this.$store.commit("dingdanliebiaopage", this.dingdanliebiaopage + 1);
+		},
 		methods: {
-			toPay() {
-				if (!this.ischooseShifu) {
-					this.$refs.uToast.show({
-						title: '请先选择师傅',
-						type: 'warning',
+			async getData() {
+				// 搜索后的商品列表
+				this.status = 'loading';
+				if (this.clock) {
+					this.list = [];
+				}
+				setTimeout(async () => {
+					const res = await this.$api.craftsmanDemandQuotes({
+						page: this.dingdanliebiaopage,
+						limit: this.dingdanliebiaopageSize,
+						type: this.type,
 					})
-				}
+					console.log(res)
+					var myData = new Date().getTime()
+					res.data.data.forEach(ele => {
+						var timecha = this.DateDifference(myData, ele.expiration)
+						ele.timecha = timecha; //时间差
+					})
+					if (res.data.data.length == 0) {
+						this.status = 'nomore'
+					} else {
+						this.status = 'loadmore';
+						console.log(this.list)
+						this.list = this.list.concat(res.data.data)
+					}
+				}, 200)
 			},
-			toPingjia(){
-				uni.navigateTo({
-					url:'/pages/dingdan/pingjia/pingjia'
-				})
-			},
-			quxiaoDD(i){
-				this.quxiaoStatus = i;
-				this.quxiaoDDshow = true;
-			},
-			quxiaoDDSubmit(){
-				this.quxiaoDDshow = false;
-			},
-			radioGroupChange(){
-				console.log(this.quxxiaoDDRal)
-			},
-			toXiangqin(val) {
-				uni.navigateTo({
-					url: `/pages/dingdan/chakanxiangqin/chakanxiangqin?status=${val}`
-				})
-			},
-			toxuanzeshifu() {
-				uni.navigateTo({
-					url: '/pages/dingdan/xuanzeshifu/xuanzeshifu'
-				})
-			},
-			chooesTop(val) {
-				this.maskshow = true;
+			changeBtn(val) {
 				if (val == 1) {
-					this.chooseTop2 = false;
-					this.chooseTop1 = true;
-				} else {
-					this.chooseTop1 = false;
-					this.chooseTop2 = true;
+					this.type = 1;
+					this.isActive = true;
+					this.clock = true;
+					this.getData()
+				}
+				if (val == 2) {
+					this.type = 0;
+					this.isActive = false;
+					this.clock = true;
+					this.getData()
 				}
 			},
-			onMask() {
-				this.maskshow = false;
-				this.chooseTop1 = false;
-				this.chooseTop2 = false;
+			toChakandingdan(item) {
+				uni.navigateTo({
+					url: `/pages/index/dingdanxinxi/dingdanxinxi?id=${item.id}`
+				})
 			},
-			cTop1Btn1(val) {
-				this.current = 0;
-				this.top1Value = val;
-				this.top2Value = '';
-				this.chooseTop1 = false;
-				this.maskshow = false;
-			},
-			closeTop1() {
-				this.top1Value = '';
-			},
-			cTop2Btn1(val) {
-				this.current = 1;
-				this.top2Value = val;
-				this.top1Value = '';
-				this.chooseTop2 = false;
-				this.maskshow = false;
-			},
-			closeTop2() {
-				this.top2Value = '';
-			},
-			fuzhi() {
-				uni.setClipboardData({
-					data: 'hello',
-				});
-			},
+			DateDifference(faultDate, completeTime) {
+				var stime = faultDate;
+				var etime = new Date(completeTime).getTime();
+				var usedTime = etime - stime; //两个时间戳相差的毫秒数
+				var days = Math.floor(usedTime / (24 * 3600 * 1000));
+				//计算出小时数
+				var leave1 = usedTime % (24 * 3600 * 1000); //计算天数后剩余的毫秒数
+				var hours = Math.floor(leave1 / (3600 * 1000));
+				//计算相差分钟数
+				var leave2 = leave1 % (3600 * 1000); //计算小时数后剩余的毫秒数
+				var minutes = Math.floor(leave2 / (60 * 1000));
+				var time = days + "天" + hours + "时" + minutes + "分";
+				return time;
+			}
 		}
 	}
 </script>
@@ -624,395 +173,207 @@
 	}
 </style>
 <style scoped lang="scss">
-	.index {
-		position: relative;
+	.index {}
+	.noDD{
+		height: 100rpx;
+		line-height: 100rpx;
+		text-align:  center;
 	}
-	.pop{
-		height: 100%;
-		width: 100%;
-		padding: 0 42rpx;
-		position: relative;
-		.pop-tit{
-			text-align: center;
-			margin-bottom: 40rpx;
-			margin-top: 20rpx;
-			font-size: 36rpx;
-			font-family: Segoe UI;
-			font-weight: 400;
-			line-height: 48rpx;
-			color: #000000;
-		}
-		/deep/ .u-radio{
-			margin-bottom: 6rpx;
-			.u-radio__label{
-				margin-left: 30rpx;
-				color: #000000;
-			}
-		}
-		.pop-btn{
-			position: absolute;
-			bottom: 64rpx;
-			left: 128rpx;
-			width: 304rpx;
-			height: 76rpx;
-			background: #1677FF;
-			border-radius: 48rpx;
-			text-align:  center;
-			line-height: 76rpx;
-			font-size: 40rpx;
-			font-family: Microsoft YaHei;
-			font-weight: 400;
-			color: #FFFFFF;
-		}
-	}
-	.txtt1 {
-		margin-top: 34rpx;
-		text-align: center;
-		font-size: 128rpx;
-		font-family: SimHei;
-		font-weight: 400;
-		line-height: 172rpx;
-		color: #4988FD;
-	}
-
-	.txtt2 {
-		text-align: center;
-		font-size: 20rpx;
-		font-family: Segoe UI;
-		font-weight: 400;
-		line-height: 36rpx;
-		color: #999999;
-	}
-
 	.nav1 {
-		position: fixed;
-		top: 0rpx;
-		z-index: 2;
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		width: 750rpx;
-		height: 84rpx;
-		background: #FFFFFF;
-		opacity: 1;
-		padding: 0 216rpx;
+		margin-top: 20rpx;
 
-		.tit1 {
-			font-size: 28rpx;
-			font-family: Segoe UI;
-			font-weight: 400;
-			line-height: 38rpx;
-			color: #000000;
+		.pic1 {
+			margin-left: 20rpx;
+			width: 596rpx;
+			height: 244rpx;
 		}
-
-		.tit1.active {
-			font-size: 32rpx;
-			font-family: Segoe UI;
-			font-weight: 400;
-			line-height: 42rpx;
-			color: #4988FD;
-		}
-
-		// /deep/ .u-tag{
-		// 	transform: translateX(30rpx);
-		// }
 	}
 
 	.nav2 {
-		position: fixed;
-		top: 80rpx;
-		z-index: 2;
-		width: 750rpx;
-		height: 164rpx;
-		background: #FFFFFF;
-		padding-top: 20rpx;
+		margin-top: 20rpx;
+		margin-left: 20rpx;
+		width: 710rpx;
+		opacity: 1;
+		background: #ffffff;
+		border-radius: 16rpx;
+		padding: 0 26rpx;
 
-		.btn {
-			display: inline-block;
-			width: 136rpx;
-			height: 44rpx;
-			background: #F0F0F0;
-			border-radius: 30rpx;
-			font-size: 24rpx;
-			font-family: Segoe UI;
-			font-weight: 400;
-			line-height: 44rpx;
-			text-align: center;
-			color: #707070;
-			margin-bottom: 20rpx;
-			margin-left: 22rpx;
-		}
+		.tit1 {
+			padding-top: 24rpx;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
 
-		.btn.active {
-			background: #4988FD;
-			color: #FFFFFF;
-		}
-	}
-
-	.items {
-		padding-top: 90rpx;
-
-		.item {
-			margin-top: 20rpx;
-			padding: 26rpx 22rpx 0 22rpx;
-			background: #FFFFFF;
-
-			.tit11 {
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
+			.txt1 {
+				font-size: 32rpx;
+				font-family: Segoe UI, Segoe UI-Bold;
+				font-weight: 700;
+				text-align: center;
+				color: #000000;
 			}
 
-			.tit1 {
-				// padding-top: 26rpx;
+			.pic1 {
+				width: 56rpx;
+				height: 60rpx;
+			}
+		}
+
+		.nav4 {
+			margin-top: 8rpx;
+			// margin: 26rpx 22rpx 0 22rpx;
+			display: flex;
+			align-items: center;
+
+			.shu {
+				margin: 0 22rpx;
+				height: 32rpx;
+				border: 2rpx solid #E6E6E6;
+			}
+
+			.txt4-1 {
 				font-size: 32rpx;
 				font-family: Segoe UI;
 				font-weight: 400;
 				line-height: 42rpx;
+				color: #999999;
+			}
+
+			.txt4-1.active {
+				font-size: 32rpx;
+				font-family: Segoe UI;
+				font-weight: bold;
+				line-height: 42rpx;
 				color: #000000;
 			}
+		}
 
-			.tit1-1 {
-				// padding-top: 26rpx;
-				font-size: 24rpx;
-				font-family: Segoe UI;
-				font-weight: 400;
-				color: #FF6F00;
-			}
+		.items {
+			margin-top: 10rpx;
+			// padding: 0 18rpx 0 26rpx;
+			margin-bottom: 88rpx;
 
-			.tit1-2 {
-				// padding-top: 26rpx;
-				font-size: 24rpx;
-				font-family: Segoe UI;
-				font-weight: 400;
-				color: #D7373F;
-			}
+			.item {
+				&:nth-child(1) {
+					border-top: 2rpx solid #EBEBEB;
+				}
 
-			.tit1-3 {
-				// padding-top: 26rpx;
-				font-size: 24rpx;
-				font-family: Segoe UI;
-			}
-
-			.titt {
-				align-items: center;
-				display: flex;
-				justify-content: space-between;
-			}
-
-			.tit2 {
-				margin-top: 20rpx;
+				height: 160rpx;
+				border-bottom: 2rpx solid #EBEBEB;
 				display: flex;
 				align-items: center;
-
-				.txt1 {
-					font-size: 20rpx;
-					font-family: Segoe UI;
-					font-weight: 400;
-					line-height: 28rpx;
-					color: #999999;
-
-					.black {
-						color: #000000;
-					}
-				}
-
-				.shu {
-					height: 16rpx;
-					border: 2rpx solid #E6E6E6;
-					margin: 0 10rpx 0 20rpx;
-				}
-
-				.txt2 {
-					font-size: 24rpx;
-					font-family: Segoe UI;
-					font-weight: 400;
-					line-height: 32rpx;
-					color: #4988FD;
-				}
-			}
-
-			.tit3 {
-				display: flex;
-				align-items: center;
-				justify-content: space-between;
-				margin-top: 24rpx;
-
-				.txt3-1 {
-					display: flex;
-					align-items: center;
-
-					.txt33 {
-						margin-left: 20rpx;
-
-						.txt3-1-1 {
-							font-size: 24rpx;
-							font-family: Segoe UI;
-							font-weight: 400;
-							line-height: 32rpx;
-							color: #D7373F;
-						}
-
-						.txt3-1-2 {
-							margin-top: 12rpx;
-							font-size: 24rpx;
-							font-family: Segoe UI;
-							font-weight: 400;
-							line-height: 32rpx;
-							color: #4988FD;
-						}
-					}
-				}
-
-				.picc {
-					width: 50rpx;
-					height: 50rpx;
-				}
 
 				.pic1 {
-					width: 76rpx;
-					height: 76rpx;
-					background: #FFFFFF;
-					border-radius: 50%;
+					width: 186rpx;
+					height: 116rpx;
 				}
 
-				.txt1 {
-					display: flex;
-					align-items: center;
+				.item-right {
+					margin-left: 20rpx;
 
-					.txt1-1 {
-						font-size: 24rpx;
+					.tit1 {
+						margin-top: 0;
+						padding-top: 0;
+						font-size: 32rpx;
 						font-family: Segoe UI;
 						font-weight: 400;
-						line-height: 32rpx;
+						line-height: 42rpx;
 						color: #000000;
-						margin-right: 16rpx;
-					}
-				}
-			}
-
-			.tit4 {
-				margin-top: 6rpx;
-				font-size: 24rpx;
-				font-family: Segoe UI;
-				font-weight: 400;
-				line-height: 32rpx;
-				color: #4988FD;
-			}
-
-			.heng {
-				margin-top: 16rpx;
-				width: 750rpx;
-				border: 2rpx solid #E6E6E6;
-				transform: translateX(-22rpx);
-			}
-
-			.tit5 {
-				position: relative;
-				height: 114rpx;
-				width: 750rpx;
-				display: flex;
-				align-items: center;
-
-				.img {
-					display: flex;
-					align-items: center;
-
-					.pic1 {
-						width: 76rpx;
-						height: 76rpx;
-						background: #FFFFFF;
-						border-radius: 50%;
 					}
 
-					.tit111 {
-						margin-left: 20rpx;
-
-						.txt11-1 {
-							font-size: 24rpx;
-							font-family: Segoe UI;
-							font-weight: 400;
-							line-height: 32rpx;
-							color: #000000;
-						}
-
-						.txt11-2 {
-							margin-top: 12rpx;
-							font-size: 24rpx;
-							font-family: Segoe UI;
-							font-weight: 400;
-							line-height: 32rpx;
-							color: #4988FD;
-						}
-					}
-				}
-
-				.txt4 {
-					font-size: 24rpx;
-					font-family: Segoe UI;
-					font-weight: 400;
-					color: #707070;
-					margin-right: 44rpx;
-				}
-
-				.txt1.txt1-3 {
-					margin-left: 228rpx;
-				}
-
-				.txt1.txt1-1 {
-					margin-left: 104rpx;
-					margin-right: 42rpx;
-				}
-
-				.txt1.txt1-2 {
-					margin-left: 296rpx;
-					margin-right: 42rpx;
-				}
-
-				.txt1 {
-					margin-left: 370rpx;
-					margin-right: 62rpx;
-					font-size: 24rpx;
-					font-family: Segoe UI;
-					font-weight: 400;
-					color: #707070;
-				}
-
-				.txt2 {
-					width: 176rpx;
-					height: 56rpx;
-					background: #4988FD;
-					border-radius: 28rpx;
-					font-size: 24rpx;
-					font-family: Segoe UI;
-					text-align: center;
-					font-weight: 400;
-					line-height: 56rpx;
-					color: #FFFFFF;
-				}
-
-				.txt2.active {
-					background: #cccccc;
-				}
-
-				.txt3 {
-					position: absolute;
-					font-size: 32rpx;
-					font-family: Segoe UI;
-					font-weight: 400;
-					line-height: 42rpx;
-					color: #D7373F;
-				}
-
-				.txt5 {
-					position: absolute;
-
-					.txt5-1 {
+					.tit2 {
+						margin-top: 10rpx;
 						font-size: 20rpx;
 						font-family: Segoe UI;
 						font-weight: 400;
 						line-height: 28rpx;
-						color: #FF6F00;
+						color: #CC0000;
+					}
+
+					.tit3 {
+						width: 498rpx;
+						display: flex;
+						align-items: center;
+						justify-content: space-between;
+						margin-top: 10rpx;
+
+						.txt1 {
+							font-size: 20rpx;
+							font-family: Segoe UI;
+							font-weight: 400;
+							line-height: 28rpx;
+							color: #707070;
+						}
+					}
+
+					// 
+					.tit2-1 {
+						margin-top: 10rpx;
+						display: flex;
+						align-items: center;
+
+						.pic2-1 {
+							height: 28rpx;
+							width: 22rpx;
+						}
+
+						.txt2-1 {
+							margin-left: 20rpx;
+							font-size: 20rpx;
+							font-family: Segoe UI;
+							font-weight: 400;
+							line-height: 28rpx;
+							color: #707070;
+						}
+					}
+
+					.tit3-1 {
+						width: 498rpx;
+						margin-top: 10rpx;
+						display: flex;
+						align-items: center;
+						justify-content: space-between;
+
+						.txt3-1-1 {
+							font-size: 20rpx;
+							font-family: Segoe UI;
+							font-weight: 400;
+							line-height: 28rpx;
+							color: #FF7700;
+						}
+
+						.txt3-1-1.dingjia {
+							font-size: 20rpx;
+							font-family: SimHei;
+							font-weight: 400;
+							line-height: 38rpx;
+							color: #D7373F;
+
+							.big {
+								font-size: 28rpx;
+							}
+						}
+
+						.txt3-1-2 {
+							display: flex;
+							align-items: center;
+
+							.txt3-1-2-1 {
+								font-size: 20rpx;
+								font-family: Segoe UI;
+								font-weight: 400;
+								line-height: 28rpx;
+								color: #707070;
+							}
+
+							.txt3-1-2-2 {
+								margin-left: 24rpx;
+								font-size: 20rpx;
+								font-family: Segoe UI;
+								font-weight: 400;
+								line-height: 28rpx;
+								color: #000000;
+							}
+						}
 					}
 				}
 			}

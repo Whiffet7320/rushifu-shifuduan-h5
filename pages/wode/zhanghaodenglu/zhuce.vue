@@ -1,5 +1,6 @@
 <template>
 	<view class="index">
+		<u-toast ref="uToast" />
 		<image class="pic1" src="/static/image/mcz9.png" mode=""></image>
 		<view class="nav1">
 			<view class="txt1">基本信息</view>
@@ -24,7 +25,7 @@
 		<view class="nav4">
 			注册号码无法接通的情况下，用户将可能通过备用号码 联系您，为不影响您的服务质量，建议填写备用号码
 		</view>
-		<view class="btn">提交</view>
+		<view @click="onSubmit" class="btn">提交</view>
 	</view>
 </template>
 
@@ -43,12 +44,24 @@
 			codeChange(text) {
 				this.codeText = text;
 			},
-			getCode() {
+			async getCode() {
 				if (this.$refs.uCode.canGetCode) {
 					// 模拟向后端请求验证码
 					uni.showLoading({
 						title: '正在获取验证码'
 					})
+					const res = await this.$api.sms({
+						type: 0,
+						phone: this.mobile
+					})
+					if (res.code == 200) {
+						this.code = res.data.code;
+					} else {
+						this.$refs.uToast.show({
+							title: res.msg,
+							type: 'warning',
+						})
+					}
 					setTimeout(() => {
 						uni.hideLoading();
 						// 通知验证码组件内部开始倒计时
@@ -57,7 +70,50 @@
 				} else {
 					this.$u.toast('倒计时结束后再发送');
 				}
-			}
+			},
+			async onSubmit() {
+				const that = this;
+				if (this.password.length < 8 || this.password.length > 20) {
+					this.$refs.uToast.show({
+						title: '请输入正确长度的密码',
+						type: 'warning',
+					})
+				} else if (this.password !== this.password2) {
+					this.$refs.uToast.show({
+						title: '密码输入不一致',
+						type: 'warning',
+					})
+				} else {
+					const res = await this.$api.craftsmanRegister({
+						phone: this.mobile,
+						password: this.password,
+						code: this.code
+					})
+					console.log(res)
+					if (res.code == 200) {
+						uni.setStorageSync('myUser', res.data.user)
+						console.log('222222')
+						uni.setStorage({
+							key: 'token',
+							data: res.data.token_info.access_token,
+							success() {
+								console.log('1111111')
+								that.$refs.uToast
+									.show({
+										url:'/pages/wode/zhanghaodenglu/zhanghaodenglu',
+										title: '注册成功',
+										type: 'success',
+									})
+							}
+						})
+					} else {
+						this.$refs.uToast.show({
+							title: res.msg,
+							type: 'warning',
+						})
+					}
+				}
+			},
 		}
 	}
 </script>
@@ -143,7 +199,8 @@
 			color: #4D8BFD;
 		}
 	}
-	.nav4{
+
+	.nav4 {
 		margin-top: 70rpx;
 		margin-left: 40rpx;
 		width: 672rpx;
@@ -153,7 +210,8 @@
 		line-height: 38rpx;
 		color: #999999;
 	}
-	.btn{
+
+	.btn {
 		margin-top: 82rpx;
 		margin-left: 228rpx;
 		width: 296rpx;

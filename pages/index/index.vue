@@ -59,6 +59,7 @@
 							</view>
 						</view>
 					</view>
+
 				</view>
 			</template>
 		</view>
@@ -71,23 +72,19 @@
 	export default {
 		data() {
 			return {
-				bannerList: [{
-						image: 'https://cdn.uviewui.com/uview/swiper/1.jpg',
-						title: '昨夜星辰昨夜风，画楼西畔桂堂东'
-					},
-					{
-						image: 'https://cdn.uviewui.com/uview/swiper/2.jpg',
-						title: '身无彩凤双飞翼，心有灵犀一点通'
-					},
-					{
-						image: 'https://cdn.uviewui.com/uview/swiper/3.jpg',
-						title: '谁念西风独自凉，萧萧黄叶闭疏窗，沉思往事立残阳'
-					}
-				],
+				bannerList: [],
 				isActive: true,
 			}
 		},
+		onShow() {
+			this.getData()
+		},
 		methods: {
+			async getData() {
+				const res = await this.$api.craftsmanHome()
+				console.log(res)
+				this.bannerList = res.data.banner
+			},
 			changeBtn(val) {
 				if (val == 1) {
 					this.isActive = true;
@@ -218,6 +215,7 @@
 			margin-top: 24rpx;
 			padding: 0 18rpx 0 26rpx;
 			margin-bottom: 88rpx;
+
 			.item {
 				&:nth-child(1) {
 					border-top: 2rpx solid #EBEBEB;
@@ -289,40 +287,47 @@
 							color: #707070;
 						}
 					}
-					.tit3-1{
+
+					.tit3-1 {
 						width: 498rpx;
 						margin-top: 10rpx;
 						display: flex;
 						align-items: center;
 						justify-content: space-between;
-						.txt3-1-1{
+
+						.txt3-1-1 {
 							font-size: 20rpx;
 							font-family: Segoe UI;
 							font-weight: 400;
 							line-height: 28rpx;
 							color: #FF7700;
 						}
-						.txt3-1-1.dingjia{
+
+						.txt3-1-1.dingjia {
 							font-size: 20rpx;
 							font-family: SimHei;
 							font-weight: 400;
 							line-height: 38rpx;
 							color: #D7373F;
-							.big{
+
+							.big {
 								font-size: 28rpx;
 							}
 						}
-						.txt3-1-2{
+
+						.txt3-1-2 {
 							display: flex;
 							align-items: center;
-							.txt3-1-2-1{
+
+							.txt3-1-2-1 {
 								font-size: 20rpx;
 								font-family: Segoe UI;
 								font-weight: 400;
 								line-height: 28rpx;
 								color: #707070;
 							}
-							.txt3-1-2-2{
+
+							.txt3-1-2-2 {
 								margin-left: 24rpx;
 								font-size: 20rpx;
 								font-family: Segoe UI;
@@ -335,6 +340,7 @@
 				}
 			}
 		}
+
 	}
 
 	.nav6 {

@@ -18,6 +18,11 @@ let myDelete = axios.create({
 	method: 'delete',
 	// timeout: 1000,
 })
+let myPut = axios.create({
+	baseURL: urls.baseUrl,
+	method: 'put',
+	// timeout: 1000,
+})
 axios.defaults.adapter = function(config) { //自己定义个适配器，用来适配uniapp的语法
 	return new Promise((resolve, reject) => {
 		var settle = require('axios/lib/core/settle');
@@ -49,6 +54,7 @@ myPost.interceptors.request.use(config => {
 	if (uni.getStorageSync('token')) {
 		config.headers = {
 			'Accept':'application/json',
+			'Authorization': `Bearer ${uni.getStorageSync('token')}`
 			// 'token':  uni.getStorageSync('token'),
 			// 'Access-Control-Allow-Origin': '*',
 			// "access-control-allow-credentials": "true"
@@ -65,12 +71,29 @@ myGet.interceptors.request.use(config => {
 	if (uni.getStorageSync('token')) {
 		config.headers = {
 			'Accept':'application/json',
+			'Authorization': `Bearer ${uni.getStorageSync('token')}`
 			// 'token': sessionStorage.token,
-			'Access-Control-Allow-Origin': '*',
-			"access-control-allow-credentials": "true"
+			// 'Access-Control-Allow-Origin': '*',
+			// "access-control-allow-credentials": "true"
 		}
-		config.headers.token = uni.getStorageSync('token');
 	}
+	return config;
+}, error => {
+	console.log(error);
+	return Promise.reject();
+})
+myPut.interceptors.request.use(config => {
+	if (uni.getStorageSync('token')) {
+		config.headers = {
+			'Accept':'application/json',
+			'Authorization': `Bearer ${uni.getStorageSync('token')}`
+			// 'token':  uni.getStorageSync('token'),
+			// 'Access-Control-Allow-Origin': '*',
+			// "access-control-allow-credentials": "true"
+		}
+		// config.headers.token = uni.getStorageSync('token');
+	}
+	console.log(config)
 	return config;
 }, error => {
 	console.log(error);
@@ -79,7 +102,13 @@ myGet.interceptors.request.use(config => {
 myPost.interceptors.response.use(response => {
 	// console.log(response)
 	if (response.status === 200) {
-		return response.data
+		if (response.data.code == 401) {
+			uni.navigateTo({
+				url: '/pages/wode/zhanghaodenglu/zhanghaodenglu'
+			})
+		} else {
+			return response.data
+		}
 	}
 	// if (response.status === 200 && response.data.code == '200') {
 	//     vue.$message({
@@ -124,7 +153,63 @@ myPost.interceptors.response.use(response => {
 })
 myGet.interceptors.response.use(response => {
 	if (response.status === 200) {
-		return response.data
+		if (response.data.code == 401) {
+			uni.navigateTo({
+				url: '/pages/wode/zhanghaodenglu/zhanghaodenglu'
+			})
+		} else {
+			return response.data
+		}
+	}
+	// if (response.status === 200 && response.data.code == '200') {
+	//     vue.$message({
+	//         message: response.data.msg,
+	//         type: "success",
+	//     });
+	//     return response.data;
+	// }
+	else {
+		vue.$message.error(response.data.info);
+		Promise.reject();
+	}
+}, error => {
+	//错误跳转
+	console.log(error);
+	if (error.response.status === 500) {
+		if (error.response.data.info != '参数错误') {
+			vue.$message.error(error.response.data.info);
+		}
+	} else if (error.response.status === 401) {
+		sessionStorage.setItem("isLogin", false);
+		console.log(sessionStorage.getItem("isLogin"));
+		// router.push({ path: "/" })
+		// router.go(0)
+		return Promise.reject();
+	} else if (error.response.status === 404) {
+		vue.$alert('页面不存在', '404错误', {
+			confirmButtonText: '确定',
+		});
+		return Promise.reject();
+	} else if (error.response.status === 402) {
+		vue.$alert('请求次数限制', '402错误', {
+			confirmButtonText: '确定',
+		});
+		return Promise.reject();
+	} else {
+		if (error.response.data.info != '参数错误') {
+			vue.$message.error(error.response.data.info);
+		}
+	}
+})
+myPut.interceptors.response.use(response => {
+	if (response.status === 200) {
+		if (response.data.code == 401) {
+			uni.navigateTo({
+				url: '/pages/wode/zhanghaodenglu/zhanghaodenglu'
+			})
+		} else {
+			return response.data
+		}
 	}
 	// if (response.status === 200 && response.data.code == '200') {
 	//     vue.$message({
@@ -168,22 +253,148 @@ myGet.interceptors.response.use(response => {
 })
 
 export default {
-	loginWechat(obj) {
+	craftsmanRegister(obj) {
 		return myPost({
-			url: urls.loginWechat,
+			url: urls.craftsmanRegister,
 			data: {
 				...obj
 			},
 		})
 	},
-	categories() {
+	sms(obj) {
 		return myGet({
-			url: urls.categories,
+			url: urls.sms,
+			params: {
+				...obj
+			},
+		})
+	},
+	craftsmanLogin(obj) {
+		return myPost({
+			url: urls.craftsmanLogin,
+			data: {
+				...obj
+			},
+		})
+	},
+	craftsmanLoginCode(obj) {
+		return myPost({
+			url: urls.craftsmanLoginCode,
+			data: {
+				...obj
+			},
+		})
+	},
+	craftsmanSkills(obj) {
+		return myGet({
+			url: urls.craftsmanSkills,
+			params: {
+				...obj
+			},
+		})
+	},
+	craftsmanForgetPwd(obj) {
+		return myPost({
+			url: urls.craftsmanForgetPwd,
+			data: {
+				...obj
+			},
+		})
+	},
+	craftsmanMyCraftsmanInfo(obj) {
+		return myPut({
+			url: urls.craftsmanMyCraftsmanInfo,
+			data: {
+				...obj
+			},
+		})
+	},
+	seecraftsmanMyCraftsmanInfo() {
+		return myGet({
+			url: urls.seecraftsmanMyCraftsmanInfo,
+		})
+	},
+	craftsmanIdentityCard(obj) {
+		return myPost({
+			url: urls.craftsmanIdentityCard,
+			data: {
+				...obj
+			},
+		})
+	},
+	uploadToken() {
+		return myGet({
+			url: urls.uploadToken,
+		})
+	},
+	getCraftsmanIdentityCard() {
+		return myGet({
+			url: urls.getCraftsmanIdentityCard,
+		})
+	},
+	userInfo() {
+		return myGet({
+			url: urls.userInfo,
+		})
+	},
+	setUserInfo(obj) {
+		return myPut({
+			url: urls.setUserInfo,
+			data: {
+				...obj
+			},
+		})
+	},
+	craftsmanDemandQuotes(obj) {
+		return myGet({
+			url: urls.craftsmanDemandQuotes,
+			params:{
+				...obj
+			}
 		})
 	},
 	cities() {
 		return myGet({
 			url: urls.cities,
+		})
+	},
+	craftsmanHome() {
+		return myGet({
+			url: urls.craftsmanHome,
+		})
+	},
+	changePhone(obj) {
+		return myPut({
+			url: urls.changePhone,
+			data: {
+				...obj
+			},
+		})
+	},
+	changePassword(obj) {
+		return myPut({
+			url: urls.changePassword,
+			data: {
+				...obj
+			},
+		})
+	},
+	userMessage() {
+		return myGet({
+			url: urls.userMessage,
+		})
+	},
+	seecraftsmanDemandQuotes(obj) {
+		return myGet({
+			url: `${urls.seecraftsmanDemandQuotes}/${obj.id}`,
+		})
+	},
+	craftsmanQuote(obj) {
+		return myPost({
+			url: urls.craftsmanQuote,
+			data: {
+				...obj
+			},
 		})
 	},
 }
