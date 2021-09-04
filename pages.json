@@ -26,28 +26,7 @@
 			}
 		}
 	],
-	"subPackages": [{
-			"root": "pages/dingdan/xuanzeshifu",
-			"pages": [{
-				"path": "xuanzeshifu",
-				"style": {
-					// "navigationStyle": "custom",
-					"navigationBarTitleText": "选择师傅",
-					"enablePullDownRefresh": false
-				}
-			}]
-		},
-		{
-			"root": "pages/dingdan/pingjia",
-			"pages": [{
-				"path": "pingjia",
-				"style": {
-					// "navigationStyle": "custom",
-					"navigationBarTitleText": "评价",
-					"enablePullDownRefresh": false
-				}
-			}]
-		},
+	"subPackages": [
 		{
 			"root": "pages/dingdan/chakanxiangqin",
 			"pages": [{
@@ -60,26 +39,12 @@
 			}]
 		},
 		{
-			"root": "pages/index/dingdantijiao",
+			"root": "pages/dingdan/lishijiedan",
 			"pages": [{
-				"path": "dingdantijiao",
+				"path": "lishijiedan",
 				"style": {
 					// "navigationStyle": "custom",
-					"navigationBarTitleText": "订单支付",
-					"enablePullDownRefresh": false
-				}
-			}, {
-				"path": "shangchengTijiaodingdan",
-				"style": {
-					// "navigationStyle": "custom",
-					"navigationBarTitleText": "订单支付",
-					"enablePullDownRefresh": false
-				}
-			}, {
-				"path": "xuanzeyouhuiquan",
-				"style": {
-					// "navigationStyle": "custom",
-					"navigationBarTitleText": "优惠券",
+					"navigationBarTitleText": "历史接单",
 					"enablePullDownRefresh": false
 				}
 			}]
@@ -110,17 +75,6 @@
 					"navigationBarTextStyle": "white",
 					"navigationBarBackgroundColor": "#292C33",
 					"navigationBarTitleText": "所在地址",
-					"enablePullDownRefresh": false
-				}
-			}]
-		},
-		{
-			"root": "pages/index/lishijiedan",
-			"pages": [{
-				"path": "lishijiedan",
-				"style": {
-					// "navigationStyle": "custom",
-					"navigationBarTitleText": "历史接单",
 					"enablePullDownRefresh": false
 				}
 			}]

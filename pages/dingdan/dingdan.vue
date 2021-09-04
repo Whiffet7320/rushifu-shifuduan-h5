@@ -11,7 +11,7 @@
 		<view class="nav2">
 			<view class="tit1">
 				<view class="txt1">接单列表</view>
-				<image class="pic1" src="/static/image/wodedingdan.png" mode=""></image>
+				<image @click="toLishijiedan" class="pic1" src="/static/image/wodedingdan.png" mode=""></image>
 			</view>
 			<view class="nav4">
 				<view @click="changeBtn(1)" :class="{'txt4-1':true,'active':isActive}">报价</view>
@@ -41,7 +41,7 @@
 							</view>
 							<view class="tit3-1">
 								<!-- 报价 -->
-								<view v-if="type == 1" class="txt3-1-1">{{item.quote_count}}人已报价</view>
+								<view v-if="type == 1" class="txt3-1-1">{{item.quotes_count}}人已报价</view>
 								<!-- 定价 -->
 								<view v-else class="txt3-1-1 dingjia">￥<text class="big">{{item.item.price}}</text>
 								</view>
@@ -52,6 +52,7 @@
 							</view>
 						</view>
 					</view>
+					<u-loadmore :status="status" :icon-type="iconType" :load-text="loadText" />
 				</template>
 				<view v-else class="noDD">
 					暂无订单~
@@ -108,6 +109,7 @@
 				this.status = 'loading';
 				if (this.clock) {
 					this.list = [];
+					this.clock = false;
 				}
 				setTimeout(async () => {
 					const res = await this.$api.craftsmanDemandQuotes({
@@ -130,18 +132,25 @@
 					}
 				}, 200)
 			},
+			toLishijiedan(){
+				uni.navigateTo({
+					url:'/pages/dingdan/lishijiedan/lishijiedan'
+				})
+			},
 			changeBtn(val) {
 				if (val == 1) {
 					this.type = 1;
 					this.isActive = true;
 					this.clock = true;
 					this.getData()
+					this.$store.commit("dingdanliebiaopage", 1);
 				}
 				if (val == 2) {
 					this.type = 0;
 					this.isActive = false;
 					this.clock = true;
-					this.getData()
+					this.getData() 
+					this.$store.commit("dingdanliebiaopage", 1);
 				}
 			},
 			toChakandingdan(item) {
@@ -174,11 +183,17 @@
 </style>
 <style scoped lang="scss">
 	.index {}
-	.noDD{
+
+	/deep/ .u-load-more-wrap {
+		height: 100rpx !important;
+	}
+
+	.noDD {
 		height: 100rpx;
 		line-height: 100rpx;
-		text-align:  center;
+		text-align: center;
 	}
+
 	.nav1 {
 		margin-top: 20rpx;
 

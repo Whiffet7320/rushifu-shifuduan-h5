@@ -42,7 +42,7 @@
 			this.getData();
 		},
 		methods: {
-			async getData(){
+			async getData() {
 				const res = await this.$api.getCraftsmanIdentityCard();
 				console.log(res)
 				this.image_reverse = res.data.image_reverse;
@@ -61,7 +61,14 @@
 						url: '/pages/wode/wode',
 						isTab: true,
 					})
-				}else{
+				} else if (res.code == 400) {
+					this.$refs.uToast.show({
+						title: res.msg,
+						type: 'warning',
+						url: '/pages/wode/wode',
+						isTab: true,
+					})
+				} else {
 					this.$refs.uToast.show({
 						title: res.msg,
 						type: 'warning',

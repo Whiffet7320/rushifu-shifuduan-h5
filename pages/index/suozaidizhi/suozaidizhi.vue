@@ -70,7 +70,7 @@
 				const that = this;
 				uni.getLocation({
 					success(res) {
-						// console.log(res, 'res')
+						console.log(res, 'res')
 						that.longitude = res.longitude;
 						that.latitude = res.latitude;
 						let params = {

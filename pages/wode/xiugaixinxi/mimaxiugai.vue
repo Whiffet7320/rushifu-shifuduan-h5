@@ -22,7 +22,12 @@
 		},
 		methods: {
 			async onSubmit() {
-				if (this.new_password !== this.again_password) {
+				if (this.new_password.length<8) {
+					this.$refs.uToast.show({
+						title: '密码不得少于8位数',
+						type: 'warning',
+					})
+				}else if (this.new_password !== this.again_password) {
 					this.$refs.uToast.show({
 						title: '两次输入的密码不一致',
 						type: 'warning',
