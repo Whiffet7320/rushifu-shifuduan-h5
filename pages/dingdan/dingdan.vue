@@ -1,5 +1,6 @@
 <template>
 	<view class="index">
+		<u-toast ref="uToast" />
 		<view class="nav1">
 			<!-- 横向 -->
 			<scroll-view class="scroll-view" scroll-x @scroll="scroll" style="width: 100%;white-space:nowrap;">
@@ -118,6 +119,12 @@
 						type: this.type,
 					})
 					console.log(res)
+					if (res.code != 200) {
+						this.$refs.uToast.show({
+							title: res.msg,
+							type: 'warning',
+						})
+					}
 					var myData = new Date().getTime()
 					res.data.data.forEach(ele => {
 						var timecha = this.DateDifference(myData, ele.expiration)

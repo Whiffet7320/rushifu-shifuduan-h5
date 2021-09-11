@@ -32,10 +32,10 @@
 	export default {
 		onShow() {
 			this.getAddress()
-			setTimeout(()=>{
+			setTimeout(() => {
 				this.getData()
-			},300)
-			
+			}, 300)
+
 		},
 		onLoad(option) {
 			this.checkArr = JSON.parse(option.checkArr)
@@ -45,22 +45,22 @@
 				value: '',
 				addressObj: '',
 				addressList: [],
-				province:'',
+				province: '',
 				city: '',
-				area_id:'',
-				checkArr:[],
-				longitude:'',
-				latitude:'',
+				area_id: '',
+				checkArr: [],
+				longitude: '',
+				latitude: '',
 			}
 		},
 		methods: {
 			async getData() {
-				console.log(this.province,'11111')
+				console.log(this.province, '11111')
 				const res = await this.$api.cities()
-				const myAddress = res.data.filter(ele=>{
+				const myAddress = res.data.filter(ele => {
 					return ele.name == this.province
 				})
-				const myCity = myAddress[0].children.filter(ele=>{
+				const myCity = myAddress[0].children.filter(ele => {
 					return ele.name == this.city
 				})
 				this.area_id = myCity[0].id;
@@ -108,8 +108,8 @@
 					}
 				})
 			},
-			
-			
+
+
 			searchAddress(e) {
 				let params = {
 					key: '52ad0cb98f8b948f42ab9293c027877e',
@@ -119,6 +119,7 @@
 					url: 'https://restapi.amap.com/v3/place/text',
 					data: params,
 					success: res => {
+						console.log(res)
 						setTimeout(() => {
 							this.addressList = res.data.pois;
 						}, 200)
@@ -130,17 +131,19 @@
 				this.value = item.name;
 				this.searchAddress(this.value)
 				this.addressObj.inputLeft = `${item.cityname}-${item.adname}`
+				this.city = item.cityname;
+				this.getData()
 			},
-			async onSubmit(){
+			async onSubmit() {
 				const res = await this.$api.craftsmanMyCraftsmanInfo({
-					skills:this.checkArr,
-					area_id:this.area_id,
-					longitude:this.longitude,
-					latitude:this.latitude,
-					address:`${this.addressObj.inputLeft} ${this.value}`
+					skills: this.checkArr,
+					area_id: this.area_id,
+					longitude: this.longitude,
+					latitude: this.latitude,
+					address: `${this.addressObj.inputLeft} ${this.value}`
 				})
 				console.log(res)
-				if(res.code == 200){
+				if (res.code == 200) {
 					this.$refs.uToast.show({
 						title: '添加成功',
 						type: 'success',
@@ -281,7 +284,8 @@
 			}
 		}
 	}
-	.btn{
+
+	.btn {
 		position: fixed;
 		display: flex;
 		justify-content: center;
@@ -298,5 +302,4 @@
 		font-weight: 400;
 		color: #FFFFFF;
 	}
-
 </style>

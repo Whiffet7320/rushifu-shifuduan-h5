@@ -397,4 +397,25 @@ export default {
 			},
 		})
 	},
+	craftsmanStart(obj) {
+		return myPut({
+			url: `${urls.craftsmanStart}/${obj.id}/start`,
+			data: {
+				code:obj.code,
+			},
+		})
+	},
+	ordersFinish(id) {
+		return myPut({
+			url: `${urls.ordersFinish}/${id}/finish`,
+		})
+	},
+	craftsmanMyDemandQuotes(obj) {
+		return myGet({
+			url: urls.craftsmanMyDemandQuotes,
+			params:{
+				...obj
+			}
+		})
+	},
 }

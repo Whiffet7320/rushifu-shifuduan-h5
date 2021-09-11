@@ -21,4 +21,7 @@ export default {
 	userMessage:'/api/user',//账户信息
 	seecraftsmanDemandQuotes:'/api/craftsman/demand-quotes',//可报价的需求详情
 	craftsmanQuote:'/api/craftsman/quote',//报价
+	craftsmanStart:'/api/craftsman/demand-quotes',//验证服务码
+	ordersFinish:'/api/craftsman/orders',//完成订单
+	craftsmanMyDemandQuotes:'/api/craftsman/my/demand-quotes',//历史服务列表
 }

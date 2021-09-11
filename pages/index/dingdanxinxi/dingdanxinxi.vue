@@ -1,14 +1,57 @@
 <template>
 	<view class="index">
+		<u-toast ref="uToast" />
 		<view class="nav1">
-			<view class="tit1">
+			<!-- 已取消 -->
+			<template v-if="myStatus == -1">
+				<view class="tit1">
+					<view v-if='obj.item' class="txt1">{{obj.item.name}}</view>
+					<view class="txt2">订单已被取消</view>
+				</view>
+			</template>
+			<!-- 被选择 -->
+			<template v-if="myStatus == 1">
+				<view class="tit1">
+					<view v-if='obj.item' class="txt1">{{obj.item.name}}</view>
+					<view class="txt2">已接单</view>
+				</view>
+			</template>
+			<!-- 未被选择 -->
+			<view v-if="myStatus == 0" class="tit1">
 				<view v-if='obj.item' class="txt1">{{obj.item.name}}</view>
 				<view class="txt2">距结束：{{timecha}}</view>
 			</view>
-			<view class="tit2">雇佣/仅限你报价</view>
-			<view class="tit4" v-if="lowest">
-				最低报价金额：<text class="red">{{lowest.price}}元</text><text class="info">（{{time}}）</text>
-			</view>
+			<!-- 被选择 -->
+			<template v-if="myOrderStatus">
+				<view class="tit1">
+					<view v-if='obj.item' class="txt1">{{obj.item.name}}</view>
+					<view class="txt2">{{this.myStatusVal}}</view>
+				</view>
+			</template>
+			<!-- 已完成 -->
+			<template v-if="myOrderStatus == 2">
+				<view class="tit1">
+					<view v-if='obj.item' class="txt1">{{obj.item.name}}</view>
+					<view class="txt2">已完成</view>
+				</view>
+			</template>
+			<!-- 未被选择 -->
+			<template v-if="myStatus == 0">
+				<view class="tit2">雇佣/仅限你报价</view>
+				<view class="tit4" v-if="lowest">
+					最低报价金额：<text class="red">{{lowest.price}}元</text><text class="info">（{{time}}）</text>
+				</view>
+			</template>
+			<!-- 被选择 -->
+			<template v-else>
+				<view class="tit4">
+					订单编号：<text style="color: #000000;">rsf5643135456</text>
+				</view>
+				<view class="tit4">
+					金额：<text class="red">{{lowest.price}}元</text>
+				</view>
+			</template>
+			<!--  -->
 			<view class="heng"></view>
 			<view :class="{'tit3':true,'tit33':!lowest}">
 				时间要求：<text class="black">{{timecha}}内</text>
@@ -17,23 +60,26 @@
 				师傅要求：<text class="black">{{lowest.comment}}</text>
 			</view>
 		</view>
-		<!-- 未报价 -->
-		<view v-if="!lowest" @click="toTijiaobaojia" class="btn">提交报价</view>
-		<!-- 已报价 -->
-		<view v-else-if="lowest" class="btn act1">您已报价￥{{my_quote.price}},请耐心等待</view>
+		<!-- 未被选择 -->
+		<template v-if="myStatus == 0">
+			<!-- 未报价 -->
+			<view v-if="!lowest" @click="toTijiaobaojia" class="btn">提交报价</view>
+			<!-- 已报价 -->
+			<view v-else-if="lowest" class="btn act1">您已报价￥{{my_quote.price}},请耐心等待</view>
+		</template>
 		<!-- 被选择 -->
-		<!-- <view class="bxzTxt">
+		<view class="bxzTxt" v-if="myStatus == 1">
 			<view class="txtt1">
 				本次订单将由您服务！
 			</view>
 			<view class="txtt1">
 				请尽快与客户协商具体上门服务事宜
 			</view>
-		</view> -->
+		</view>
 		<view class="nav2">
 			<view class="tit1">
 				<view class="txt1">
-					<image class="pic1"  v-if='obj.user_info' :src="obj.user_info.avatar" mode=""></image>
+					<image class="pic1" v-if='obj.user_info' :src="obj.user_info.avatar" mode=""></image>
 					<view class="txt1-1">客户信息</view>
 				</view>
 				<view class="txt2">距离你约：11.73km</view>
@@ -49,6 +95,31 @@
 				备注：<text class="black">{{obj.intro}}</text>
 			</view>
 		</view>
+		<!-- 已完成-已评价 -->
+		<view class="nav4" v-if="myOrderStatus == 4">
+			<view class="tit4-1">
+				<view class="txt4-1">客户评价</view>
+				<u-rate v-model="obj.order.comments[0].rate" active-color="#1677FF" size='24' disabled
+					inactive-color="#b2b2b2" gutter="0"></u-rate>
+			</view>
+			<view class="tit4-2">
+				{{obj.order.comments[0].content}}
+			</view>
+			<view class="tit4-3">
+				<image @click="seeImg(index)" class="pic" v-for="(item,index) in obj.order.comments[0].images"
+					:key='index' :src="item" mode=""></image>
+			</view>
+		</view>
+		<!-- 服务中-完成订单 -->
+		<view v-if="myOrderStatus == 3" @click='finishDingdan' class="nav3">完成订单</view>
+		<!-- 被选择 -->
+		<view v-if="myStatus == 1 || myOrderStatus == 1" @click="fwmShow = true" class="nav3">输入4位服务码</view>
+		<!-- 弹出服务码验证 -->
+		<u-popup v-model="fwmShow" width='650' height='336' border-radius='16' mode="center">
+			<view class="fwmBox">
+				<u-message-input @finish='checkFwm' mode="middleLine"></u-message-input>
+			</view>
+		</u-popup>
 	</view>
 </template>
 
@@ -56,6 +127,10 @@
 	export default {
 		data() {
 			return {
+				myStatusVal: '',
+				myOrderStatus: null,
+				myStatus: null,
+				fwmShow: false,
 				id: null,
 				lowest: null,
 				obj: {},
@@ -75,6 +150,20 @@
 					id: this.id
 				})
 				console.log(res)
+				if (res.data.demand_quote.order) {
+					this.myOrderStatus = res.data.demand_quote.order.status;
+				} else {
+					this.myStatus = res.data.demand_quote.status;
+				}
+				if (res.data.demand_quote.order) {
+					this.myStatusVal = res.data.demand_quote.order.status == -1 ? '已取消' : res.data.demand_quote.order
+						.status == 0 ? "未支付" : res.data.demand_quote.order.status ==
+						1 ? '已支付' : res.data.demand_quote.order.status == 3 ? '服务中' : res.data.demand_quote.order
+						.status == 4 ? '已完成' : res.data.demand_quote.order.status ==
+						5 ? '售后中' : '已完成'
+					// this.current == 0 ? "" : this.current == 1 ? "1" : "2"
+				}
+				console.log(this.myOrderStatus, this.myStatus);
 				if (res.data.lowest) {
 					this.time = this.rTime(res.data.lowest.created_at)
 					this.lowest = res.data.lowest;
@@ -84,8 +173,59 @@
 				}
 
 				this.obj = res.data.demand_quote;
+				if (this.obj.order && this.obj.order.comments) {
+					if (!this.obj.order.comments[0].images[this.obj.order.comments[0].images.length - 1]) {
+						this.obj.order.comments[0].images.pop()
+					}
+				}
+
 				var myData = new Date().getTime()
 				this.timecha = this.DateDifference(myData, this.obj.expiration)
+			},
+			async finishDingdan() {
+				const res = await this.$api.ordersFinish(this.obj.order.id)
+				console.log(res);
+				if (res.code == 200) {
+					this.$refs.uToast.show({
+						title: '提交完成订单成功',
+						type: 'success',
+						back: true,
+						callback: () => {
+							this.getData()
+						},
+					})
+				} else {
+					this.$refs.uToast.show({
+						title: res.msg,
+						type: 'warning',
+					})
+				}
+			},
+			seeImg(i) {
+				uni.previewImage({
+					urls: this.obj.order.comments[0].images,
+					current: i,
+				});
+			},
+			async checkFwm(e) {
+				console.log(e)
+				const res = await this.$api.craftsmanStart({
+					id: this.obj.id,
+					code: e
+				})
+				console.log(res)
+				if (res.code == 200) {
+					this.$refs.uToast.show({
+						title: '验证成功',
+						type: 'success',
+						back: true
+					})
+				} else {
+					this.$refs.uToast.show({
+						title: res.msg,
+						type: 'warning',
+					})
+				}
 			},
 			toTijiaobaojia() {
 				uni.navigateTo({
@@ -300,5 +440,65 @@
 			}
 		}
 
+	}
+
+	.nav3 {
+		margin-left: 80rpx;
+		margin-top: 114rpx;
+		width: 586rpx;
+		height: 96rpx;
+		background: #4D8BFD;
+		border-radius: 6rpx;
+		font-size: 32rpx;
+		font-family: Segoe UI;
+		font-weight: 400;
+		line-height: 96rpx;
+		text-align: center;
+		color: #FFFFFF;
+	}
+
+	.nav4 {
+		margin-top: 20rpx;
+		margin-left: 22rpx;
+		width: 704rpx;
+		// height: 342rpx;
+		background: #ffffff;
+		border-radius: 6rpx;
+		padding: 0 20rpx;
+
+		.tit4-1 {
+			padding-top: 32rpx;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+
+			.txt4-1 {
+				font-size: 32rpx;
+			}
+		}
+
+		.tit4-2 {
+			margin-top: 22rpx;
+			font-size: 24rpx;
+			padding-bottom: 24rpx;
+		}
+
+		.tit4-3 {
+			padding-bottom: 20rpx;
+
+			.pic {
+				width: 120rpx;
+				height: 120rpx;
+				margin-right: 20rpx;
+			}
+		}
+	}
+
+	.fwmBox {
+		width: 100%;
+		height: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 </style>
