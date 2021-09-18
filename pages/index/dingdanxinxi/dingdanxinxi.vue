@@ -1,7 +1,66 @@
 <template>
 	<view class="index">
 		<u-toast ref="uToast" />
-		<view class="nav1">
+		<view v-if="obj.type == 0" class="nav1">
+			<!-- 已取消 -->
+			<template v-if="myStatus == -1">
+				<view class="tit1">
+					<view v-if='obj.item' class="txt1">{{obj.item.name}}</view>
+					<view class="txt2">订单已被取消</view>
+				</view>
+			</template>
+			<!-- 被选择 -->
+			<template v-if="myStatus == 1">
+				<view class="tit1">
+					<view v-if='obj.item' class="txt1">{{obj.item.name}}</view>
+					<view class="txt2">已接单</view>
+				</view>
+			</template>
+			<!-- 未被选择 -->
+			<view v-if="myStatus == 0" class="tit1">
+				<view v-if='obj.item' class="txt1">{{obj.item.name}}</view>
+				<view class="txt2">距结束：{{timecha}}</view>
+			</view>
+			<!-- 被选择 -->
+			<template v-if="myOrderStatus">
+				<view class="tit1">
+					<view v-if='obj.item' class="txt1">{{obj.item.name}}</view>
+					<view class="txt2">{{this.myStatusVal}}</view>
+				</view>
+			</template>
+			<!-- 已完成 -->
+			<template v-if="myOrderStatus == 2">
+				<view class="tit1">
+					<view v-if='obj.item' class="txt1">{{obj.item.name}}</view>
+					<view class="txt2">已完成</view>
+				</view>
+			</template>
+			<!-- 未被选择 -->
+			<template v-if="myStatus == 0">
+				<view class="tit2">价格:￥{{obj.item.price}}</view>
+				<view class="tit4" v-if="lowest">
+					最低报价金额：<text class="red">{{lowest.price}}元</text><text class="info">（{{time}}）</text>
+				</view>
+			</template>
+			<!-- 被选择 -->
+			<template v-else>
+				<view class="tit4">
+					订单编号：<text style="color: #000000;">rsf5643135456</text>
+				</view>
+				<view class="tit4">
+					金额：<text class="red">{{lowest.price}}元</text>
+				</view>
+			</template>
+			<!--  -->
+			<view class="heng"></view>
+			<view :class="{'tit3':true,'tit33':!lowest}">
+				时间要求：<text class="black">{{timecha}}内</text>
+			</view>
+			<view :class="{'tit3':true,'tit33':lowest}" v-if="lowest">
+				师傅要求：<text class="black">{{lowest.comment}}</text>
+			</view>
+		</view>
+		<view v-else class="nav1">
 			<!-- 已取消 -->
 			<template v-if="myStatus == -1">
 				<view class="tit1">
@@ -61,9 +120,16 @@
 			</view>
 		</view>
 		<!-- 未被选择 -->
-		<template v-if="myStatus == 0">
+		<template v-if="myStatus == 0 && obj.type != 0">
 			<!-- 未报价 -->
 			<view v-if="!lowest" @click="toTijiaobaojia" class="btn">提交报价</view>
+			<!-- 已报价 -->
+			<view v-else-if="lowest" class="btn act1">您已报价￥{{my_quote.price}},请耐心等待</view>
+		</template>
+		<!-- 定价 -->
+		<template v-if="myStatus == 0 && obj.type == 0">
+			<!-- 未报价 -->
+			<view v-if="!lowest" @click="toTijiaobaojia" class="btn">立即抢单</view>
 			<!-- 已报价 -->
 			<view v-else-if="lowest" class="btn act1">您已报价￥{{my_quote.price}},请耐心等待</view>
 		</template>
@@ -76,6 +142,7 @@
 				请尽快与客户协商具体上门服务事宜
 			</view>
 		</view>
+		<!-- 客户信息 -->
 		<view class="nav2">
 			<view class="tit1">
 				<view class="txt1">
@@ -229,7 +296,7 @@
 			},
 			toTijiaobaojia() {
 				uni.navigateTo({
-					url: `/pages/index/dingdanxinxi/baojia?demand_quote_id=${this.obj.id}`
+					url: `/pages/index/dingdanxinxi/baojia?demand_quote_id=${this.obj.id}&type=${this.obj.type}`
 				})
 			},
 			DateDifference(faultDate, completeTime) {

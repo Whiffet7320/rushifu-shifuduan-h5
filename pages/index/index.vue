@@ -63,7 +63,7 @@
 				</view>
 			</template>
 		</view>
-		<view class="nav6">您已注册成功，现在可以申请入驻</view>
+		<view class="nav6">您已注册成功，现在可以通过技能中心申请入驻</view>
 	</view>
 </template>
 

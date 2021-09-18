@@ -62,7 +62,7 @@
 				"path": "baojia",
 				"style": {
 					// "navigationStyle": "custom",
-					"navigationBarTitleText": "报价",
+					"navigationBarTitleText": "报价/抢单",
 					"enablePullDownRefresh": false
 				}
 			}]

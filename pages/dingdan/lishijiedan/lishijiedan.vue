@@ -209,7 +209,7 @@
 				this.getData();
 				setTimeout(() => {
 					this.getCurrentSwiperHeight('.items')
-				}, 500)
+				}, 800)
 			},
 			getCurrentSwiperHeight(element) {
 				let query = uni.createSelectorQuery().in(this);
