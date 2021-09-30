@@ -1,5 +1,7 @@
 export default {
-    baseUrl: 'http://192.168.50.96:8001',
+    // baseUrl: 'http://192.168.50.96:8001',
+	// baseUrl:'https://rushifu.5laoye.com',
+	baseUrl:'https://rushifu.hxqhhhh.shop',
 	uploadToken:'/api/upload/token',//上传测试
 	craftsmanRegister:'/api/craftsman/register',//注册
 	sms:'/api/sms',//发送短信

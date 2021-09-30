@@ -31,6 +31,11 @@
 </template>
 
 <script>
+	import {
+		Base64
+	} from 'js-base64/base64.js';
+	import OSS from 'ali-oss';
+	import crypto from 'crypto-js';
 	export default {
 		data() {
 			return {
@@ -78,14 +83,68 @@
 			},
 			async chooseImg(i) {
 				const that = this;
-				var img = await this.$OSSUpload('img')
-				console.log(img)
-				if (i == 1) {
-					this.image_reverse = img
-				} else if (i == 2) {
-					this.image_front = img
-				}
+				const date = new Date();
+				date.setHours(date.getHours() + 1);
+				uni.chooseImage({
+					count: 1,
+					success: async function(res) {
+						const policyText = {
+							expiration: date.toISOString(), // 设置policy过期时间。
+							conditions: [
+								// 限制上传大小。
+								["content-length-range", 0, 1024 * 1024 * 1024],
+							],
+						};
+						let tiemr = new Date();
+						let address = tiemr.getFullYear() + '' + (tiemr.getMonth() + 1) + '' + tiemr
+							.getDate();
+						const policy = Base64.encode(JSON.stringify(policyText));
+						const res1 = await that.$api.uploadToken();
+						console.log(res1)
+						const signature = crypto.enc.Base64.stringify(crypto.HmacSHA1(
+							policy, res1.data.accessKeySecret));
+						var imageSrc = res.tempFilePaths[0];
+						let str = res.tempFilePaths[0].substr(res.tempFilePaths[0].lastIndexOf(
+							'.'));
+						let nameStr = address + tiemr.getTime() + str;
+						uni.uploadFile({
+							url: `https://${res1.data.bucket}.${res1.data.url}`, //输入你的bucketname.endpoint
+							filePath: imageSrc,
+							name: 'file',
+							formData: {
+								key: nameStr,
+								policy: policy, // 输入你获取的的policy
+								OSSAccessKeyId: res1.data.accessKeyId, // 输入你的AccessKeyId
+								signature: signature, // 输入你获取的的signature
+								'x-oss-security-token': res1.data.stsToken
+							},
+							success: res => {
+								if (res.statusCode == '204') {
+									console.log(`https://${res1.data.bucket}.${res1.data.url}/${nameStr}`);
+									if (i == 1) {
+										that.image_reverse = `https://${res1.data.bucket}.${res1.data.url}/${nameStr}`
+									} else if (i == 2) {
+										that.image_front = `https://${res1.data.bucket}.${res1.data.url}/${nameStr}`
+									}
+								} else {
+									console.log(res);
+								}
+							}
+						})
+					}
+				});
 			},
+			
+			// async chooseImg(i) {
+			// 	const that = this;
+			// 	var img = await this.$OSSUpload('img')
+			// 	console.log(img)
+			// 	if (i == 1) {
+			// 		this.image_reverse = img
+			// 	} else if (i == 2) {
+			// 		this.image_front = img
+			// 	}
+			// },
 
 		}
 	}

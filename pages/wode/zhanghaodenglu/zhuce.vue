@@ -55,7 +55,10 @@
 						phone: this.mobile
 					})
 					if (res.code == 200) {
-						this.code = res.data.code;
+						this.$refs.uToast.show({
+							title: '已发送验证码',
+							type: 'success',
+						})
 					} else {
 						this.$refs.uToast.show({
 							title: res.msg,
