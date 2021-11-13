@@ -28,12 +28,7 @@
 	.nav1{
 		margin: 34rpx 28rpx ;
 		.tit1{
-			font-size: 28rpx;
-			font-family: Segoe UI;
-			font-weight: 400;
-			line-height: 38rpx;
-			color: #707070;
-			margin-bottom: 20rpx;
+			
 		}
 	}
 </style>

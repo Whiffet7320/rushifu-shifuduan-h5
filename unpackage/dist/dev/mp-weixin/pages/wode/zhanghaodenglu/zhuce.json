@@ -1,9 +1,0 @@
-{
-  "navigationBarTitleText": "账号注册",
-  "enablePullDownRefresh": false,
-  "usingComponents": {
-    "u-field": "/node-modules/uview-ui/components/u-field/u-field",
-    "u-button": "/node-modules/uview-ui/components/u-button/u-button",
-    "u-verification-code": "/node-modules/uview-ui/components/u-verification-code/u-verification-code"
-  }
-}

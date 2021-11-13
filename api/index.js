@@ -103,9 +103,19 @@ myPost.interceptors.response.use(response => {
 	// console.log(response)
 	if (response.status === 200) {
 		if (response.data.code == 401) {
-			uni.navigateTo({
-				url: '/pages/wode/zhanghaodenglu/zhanghaodenglu'
-			})
+			uni.showModal({
+			    title: '提示',
+			    content: '您还未登录账号，前往登录',
+			    success: function (res) {
+			        if (res.confirm) {
+			            uni.navigateTo({
+			            	url: '/pages/wode/zhanghaodenglu/zhanghaodenglu'
+			            })
+			        } else if (res.cancel) {
+			            console.log('用户点击取消');
+			        }
+			    }
+			});
 		} else {
 			return response.data
 		}
@@ -154,9 +164,19 @@ myPost.interceptors.response.use(response => {
 myGet.interceptors.response.use(response => {
 	if (response.status === 200) {
 		if (response.data.code == 401) {
-			uni.navigateTo({
-				url: '/pages/wode/zhanghaodenglu/zhanghaodenglu'
-			})
+			uni.showModal({
+			    title: '提示',
+			    content: '您还未登录账号，前往登录',
+			    success: function (res) {
+			        if (res.confirm) {
+			            uni.navigateTo({
+			            	url: '/pages/wode/zhanghaodenglu/zhanghaodenglu'
+			            })
+			        } else if (res.cancel) {
+			            console.log('用户点击取消');
+			        }
+			    }
+			});
 		} else {
 			return response.data
 		}
@@ -204,9 +224,19 @@ myGet.interceptors.response.use(response => {
 myPut.interceptors.response.use(response => {
 	if (response.status === 200) {
 		if (response.data.code == 401) {
-			uni.navigateTo({
-				url: '/pages/wode/zhanghaodenglu/zhanghaodenglu'
-			})
+			uni.showModal({
+			    title: '提示',
+			    content: '您还未登录账号，前往登录',
+			    success: function (res) {
+			        if (res.confirm) {
+			            uni.navigateTo({
+			            	url: '/pages/wode/zhanghaodenglu/zhanghaodenglu'
+			            })
+			        } else if (res.cancel) {
+			            console.log('用户点击取消');
+			        }
+			    }
+			});
 		} else {
 			return response.data
 		}

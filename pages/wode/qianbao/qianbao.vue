@@ -139,7 +139,7 @@
 			color: #999999;
 			.blue{
 				color: #4988FD;
-				font-size: 28rpx;
+				font-size: :;rpx;
 			}
 		}
 

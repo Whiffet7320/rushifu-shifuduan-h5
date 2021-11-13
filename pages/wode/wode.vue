@@ -33,7 +33,7 @@
 			<view class="item" @click="toJinengzhongxin">
 				<image class="pic2" src="/static/image/weixiu.png" mode=""></image>
 				<view class="txt">
-					<view class="txt1">技能中心</view>
+					<view class="txt1">技能中心({{isRz}})</view>
 				</view>
 				<u-icon name="arrow-right" color="#989898" size="28"></u-icon>
 			</view>
@@ -61,13 +61,14 @@
 		data() {
 			return {
 				user: null,
+				isRz:'',
 			}
 		},
 		onShow(){
 			if(uni.getStorageSync('myUser')){
 				this.user = uni.getStorageSync('myUser');
 			}
-			// console.log(this.user,1111)
+			console.log(this.user,1111)
 			this.getData()
 		},
 		methods:{
@@ -76,6 +77,24 @@
 				// console.log(res)
 				this.user = {
 					...res.data
+				}
+				const res2 = await this.$api.userMessage()
+				console.log(res2)
+				this.isRz = !res2.data.identity_card ? '未认证' : res2.data.identity_card.status == 1 ? '认证通过' : '审核中' ;
+				if(!res2.data.identity_card){
+					uni.showModal({
+					    title: '提示',
+					    content: '您的账号未认证，立即认证',
+					    success: function (res) {
+					        if (res.confirm) {
+					            uni.navigateTo({
+					            	url:'/pages/wode/jinengzhongxin/jinengzhongxin'
+					            })
+					        } else if (res.cancel) {
+					            console.log('用户点击取消');
+					        }
+					    }
+					});
 				}
 			},
 			toXiugaixinxi(){
